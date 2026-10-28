@@ -1,23 +1,38 @@
 @import "tailwindcss";
 
 @theme {
+  /* Brand Red */
   --color-brand-red-50: #fef2f2;
+  --color-brand-red-100: #fee2e2;
   --color-brand-red-600: #dc2626;
   --color-brand-red-700: #b91c1c;
+  --color-brand-red-800: #991b1b;
 
+  /* Deep Neutrals */
   --color-neutral-white: #ffffff;
   --color-neutral-50: #f8fafc;
   --color-neutral-100: #f1f5f9;
   --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
   --color-neutral-600: #475569;
   --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
   --color-neutral-900: #0f172a;
 
+  /* Aquatic Secondary Context */
   --color-water-blue-50: #f0f9ff;
+  --color-water-blue-100: #e0f2fe;
   --color-water-blue-600: #0284c7;
+  --color-water-blue-700: #0369a1;
 
+  /* Semantic Feedback */
   --color-feedback-success: #059669;
   --color-feedback-warning: #d97706;
+  --color-feedback-error: #dc2626;
+
+  /* Custom Easing Tokens (Emil Design Engineering) */
+  --ease-out-cubic: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 :root {
@@ -35,4 +50,33 @@ body {
     "Segoe UI",
     Roboto,
     sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessible Native Dialog Backdrop */
+dialog::backdrop {
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(2px);
+}
+
+/* Touch action optimization to prevent double-tap zoom delay */
+button,
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

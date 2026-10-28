@@ -162,3 +162,20 @@ Typography must be exceptionally legible across budget Android smartphones, high
 * **Motion & Animation:**
   * Micro-transitions (150ms to 200ms ease-out) for hover and modal entries.
   * Strict respect for user system settings: `@media (prefers-reduced-motion: reduce)` disables all non-essential animated transitions.
+
+---
+
+## 8. Implemented UI Primitives Inventory (Phase 2A)
+
+The following core UI primitives are implemented in `src/components/ui/` with zero third-party UI framework dependencies:
+
+| Component | Path | Primary Props | Key Accessibility & Polish Features |
+| :--- | :--- | :--- | :--- |
+| **`Button`** | `src/components/ui/button.tsx` | `variant` (`primary`, `secondary`, `outline`, `ghost`, `aquatic`, `danger`), `size` (`sm`, `md`, `lg`, `icon`), `isLoading`, `loadingText` | Default `type="button"`, min $44\times 44\text{px}$ touch target, `aria-busy` during loading, active press scale (`0.98`), reduced motion support. |
+| **`Input`** | `src/components/ui/input.tsx` | `label`, `error`, `helperText`, native `<input>` attributes | Auto-generated accessible ID via `useId()`, bound `<label htmlFor>`, inline error with `role="alert"`, `aria-invalid="true"`, $48\text{px}$ touch height. |
+| **`Textarea`** | `src/components/ui/textarea.tsx` | `label`, `error`, `helperText`, `rows`, native `<textarea>` attributes | Auto-generated ID, bound label, inline error with `role="alert"`, `aria-describedby`, vertical resize. |
+| **`Card`** | `src/components/ui/card.tsx` | `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`, `variant` (`default`, `muted`, `interactive`) | Pure Server Component, polymorphic title heading level (`as="h2" \| "h3"`), $12\text{px}$ radius, text truncation safe (`break-words`). |
+| **`Badge`** | `src/components/ui/badge.tsx` | `variant` (`default`, `brand`, `aquatic`, `success`, `warning`, `outline`), `size` (`sm`, `md`) | Pure Server Component, rounded-full pill tag, high-contrast labels. |
+| **`Skeleton`** | `src/components/ui/skeleton.tsx` | `className` | Pure Server Component, `aria-hidden="true"` to prevent screen reader noise, `animate-pulse` with `motion-reduce:animate-none`. |
+| **`Dialog`** | `src/components/ui/dialog.tsx` | `isOpen`, `onClose`, `closeOnBackdropClick`, `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter` | Native HTML5 `<dialog>` modal with browser-level focus trapping, top-layer elevation, `aria-modal="true"`, native Escape cancellation, and backdrop dismissal. |
+
