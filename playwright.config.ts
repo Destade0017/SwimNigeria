@@ -23,6 +23,9 @@ export default defineConfig({
   webServer: {
     command: `npm run start -- -p ${PORT}`,
     url: baseURL,
+    env: {
+      ENABLE_TEST_HARNESS: "true",
+    },
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

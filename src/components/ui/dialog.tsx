@@ -27,6 +27,7 @@ export interface DialogProps {
   closeOnBackdropClick?: boolean;
   titleId?: string;
   descriptionId?: string;
+  variant?: "default" | "drawer";
 }
 
 export const Dialog = ({
@@ -37,6 +38,7 @@ export const Dialog = ({
   closeOnBackdropClick = true,
   titleId: explicitTitleId,
   descriptionId: explicitDescriptionId,
+  variant = "default",
 }: DialogProps) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
@@ -113,18 +115,20 @@ export const Dialog = ({
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
         className={cn(
-          "fixed inset-0 m-auto z-50 p-0 border-0 bg-transparent overflow-visible",
-          "max-w-lg w-[calc(100%-2rem)] rounded-2xl shadow-xl",
-          "focus:outline-none",
+          "z-50 p-0 border-0 bg-transparent overflow-visible focus:outline-none",
+          variant === "drawer"
+            ? "fixed inset-y-0 right-0 m-0 ml-auto h-full max-h-screen w-full max-w-sm rounded-none border-l border-neutral-200"
+            : "fixed inset-0 m-auto max-w-lg w-[calc(100%-2rem)] rounded-2xl shadow-xl",
           !isOpen && "hidden",
           className,
         )}
       >
         <div
           className={cn(
-            "bg-neutral-white text-neutral-900 rounded-2xl border border-neutral-200",
-            "p-6 shadow-2xl overflow-hidden flex flex-col gap-4",
-            "max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain",
+            "bg-neutral-white text-neutral-900 shadow-2xl flex flex-col overflow-y-auto overscroll-contain",
+            variant === "drawer"
+              ? "h-full min-h-screen p-6 gap-4"
+              : "rounded-2xl border border-neutral-200 p-6 gap-4 max-h-[calc(100vh-4rem)]",
           )}
         >
           {children}

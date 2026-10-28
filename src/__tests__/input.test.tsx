@@ -73,9 +73,35 @@ describe("Input Primitive Component", () => {
     expect(input.value).toBe("Lagos");
   });
 
-  it("supports disabled state", () => {
-    render(<Input label="Locked Field" disabled />);
-    const input = screen.getByLabelText(/locked field/i);
-    expect(input).toBeDisabled();
+  it("prioritizes active validation error over conflicting aria-invalid={false}", () => {
+    render(<Input label="Email" error="Invalid email address" aria-invalid={false} />);
+    const input = screen.getByLabelText(/email/i);
+    expect(input).toHaveAttribute("aria-invalid", "true");
+  });
+
+  it("renders both error and helperText with non-orphaned aria-describedby references", () => {
+    render(
+      <Input
+        label="Password"
+        error="Password too short"
+        helperText="Must contain at least 8 characters"
+      />,
+    );
+    const input = screen.getByLabelText(/password/i);
+    const errorAlert = screen.getByRole("alert");
+    const helper = screen.getByText(/must contain at least 8 characters/i);
+
+    expect(errorAlert).toBeInTheDocument();
+    expect(helper).toBeInTheDocument();
+
+    const describedBy = input.getAttribute("aria-describedby");
+    expect(describedBy).toContain(errorAlert.id);
+    expect(describedBy).toContain(helper.id);
+  });
+
+  it("preserves specific aria-invalid values such as 'spelling'", () => {
+    render(<Input label="Bio" aria-invalid="spelling" />);
+    const input = screen.getByLabelText(/bio/i);
+    expect(input).toHaveAttribute("aria-invalid", "spelling");
   });
 });

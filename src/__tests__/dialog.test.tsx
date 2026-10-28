@@ -118,4 +118,65 @@ describe("Dialog Primitive Component", () => {
     fireEvent.click(closeBtn);
     expect(document.activeElement).toBe(trigger);
   });
+
+  it("renders with drawer variant styling", () => {
+    render(
+      <Dialog isOpen={true} onClose={() => {}} variant="drawer">
+        <DialogTitle>Drawer Menu</DialogTitle>
+      </Dialog>,
+    );
+
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveClass("inset-y-0", "right-0");
+  });
+
+  it("supports caller-supplied titleId and descriptionId", () => {
+    render(
+      <Dialog
+        isOpen={true}
+        onClose={() => {}}
+        titleId="custom-title-id"
+        descriptionId="custom-desc-id"
+      >
+        <DialogHeader>
+          <DialogTitle>Explicit Title</DialogTitle>
+          <DialogDescription>Explicit description</DialogDescription>
+        </DialogHeader>
+      </Dialog>,
+    );
+
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveAttribute("aria-labelledby", "custom-title-id");
+    expect(dialog).toHaveAttribute("aria-describedby", "custom-desc-id");
+
+    const heading = screen.getByRole("heading", { name: "Explicit Title" });
+    expect(heading).toHaveAttribute("id", "custom-title-id");
+  });
+
+  it("restores focus when component unmounts while open", () => {
+    const UnmountTest = () => {
+      const [mounted, setMounted] = useState(true);
+      return (
+        <div>
+          <button type="button" id="trigger" onClick={() => setMounted(false)}>
+            Toggle Mount
+          </button>
+          {mounted && (
+            <Dialog isOpen={true} onClose={() => {}}>
+              <DialogTitle>Unmounting Modal</DialogTitle>
+            </Dialog>
+          )}
+        </div>
+      );
+    };
+
+    render(<UnmountTest />);
+    const trigger = screen.getByRole("button", { name: /toggle mount/i });
+    trigger.focus();
+    expect(document.activeElement).toBe(trigger);
+
+    fireEvent.click(trigger);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(document.activeElement).toBe(trigger);
+  });
 });

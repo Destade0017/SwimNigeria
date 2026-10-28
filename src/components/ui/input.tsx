@@ -31,7 +31,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const errorId = `${id}-error`;
     const helperId = `${id}-helper`;
 
-    const isInvalid = Boolean(error) || ariaInvalidProp === true || ariaInvalidProp === "true";
+    const hasActiveError = Boolean(error);
+    const isInvalid =
+      hasActiveError ||
+      (ariaInvalidProp !== undefined && ariaInvalidProp !== false && ariaInvalidProp !== "false");
+    const computedAriaInvalid = hasActiveError
+      ? "true"
+      : (ariaInvalidProp ?? (isInvalid ? "true" : undefined));
 
     const describedByIds = [
       error ? errorId : null,
@@ -65,7 +71,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           type={type}
           disabled={disabled}
           required={required}
-          aria-invalid={isInvalid ? "true" : undefined}
+          aria-invalid={computedAriaInvalid}
           aria-describedby={describedByIds || undefined}
           className={cn(
             "w-full min-h-[48px] px-3.5 py-2.5 text-base sm:text-sm rounded-lg",
@@ -81,7 +87,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
 
-        {error ? (
+        {error && (
           <p
             id={errorId}
             role="alert"
@@ -89,11 +95,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           >
             {error}
           </p>
-        ) : helperText ? (
+        )}
+        {helperText && (
           <p id={helperId} className="text-xs text-neutral-600">
             {helperText}
           </p>
-        ) : null}
+        )}
       </div>
     );
   },

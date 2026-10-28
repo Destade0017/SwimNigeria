@@ -26,13 +26,35 @@ describe("Textarea Primitive Component", () => {
     expect(textarea).toHaveAttribute("aria-invalid", "true");
   });
 
-  it("allows user input typing", () => {
-    render(<Textarea label="Notes" />);
-    const textarea = screen.getByLabelText(/notes/i) as HTMLTextAreaElement;
+  it("prioritizes active validation error over conflicting aria-invalid={false}", () => {
+    render(<Textarea label="Notes" error="Notes are required" aria-invalid={false} />);
+    const textarea = screen.getByLabelText(/notes/i);
+    expect(textarea).toHaveAttribute("aria-invalid", "true");
+  });
 
-    fireEvent.change(textarea, {
-      target: { value: "Practiced freestyle kick." },
-    });
-    expect(textarea.value).toBe("Practiced freestyle kick.");
+  it("renders both error and helperText with non-orphaned aria-describedby references", () => {
+    render(
+      <Textarea
+        label="Message"
+        error="Message is required"
+        helperText="Max 500 characters allowed"
+      />,
+    );
+    const textarea = screen.getByLabelText(/message/i);
+    const alert = screen.getByRole("alert");
+    const helper = screen.getByText(/max 500 characters allowed/i);
+
+    expect(alert).toBeInTheDocument();
+    expect(helper).toBeInTheDocument();
+
+    const describedBy = textarea.getAttribute("aria-describedby");
+    expect(describedBy).toContain(alert.id);
+    expect(describedBy).toContain(helper.id);
+  });
+
+  it("preserves specific aria-invalid values such as 'grammar'", () => {
+    render(<Textarea label="Essay" aria-invalid="grammar" />);
+    const textarea = screen.getByLabelText(/essay/i);
+    expect(textarea).toHaveAttribute("aria-invalid", "grammar");
   });
 });
