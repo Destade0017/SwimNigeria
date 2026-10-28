@@ -6,7 +6,7 @@ import { MobileNav, type NavItem } from "./mobile-nav";
 const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Courses", href: "/#courses" },
-  { label: "Safety Articles", href: "/#articles" },
+  { label: "Safety Articles", href: "/articles" },
   { label: "About", href: "/#about" },
   { label: "Contact", href: "/#contact" },
 ];

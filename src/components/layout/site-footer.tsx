@@ -67,7 +67,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
-                  href="/#articles"
+                  href="/articles"
                   className="transition-colors hover:text-brand-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600"
                 >
                   Articles &amp; Resources

@@ -60,7 +60,7 @@ describe("Layout Foundations (Phase 2B)", () => {
       );
       expect(screen.getAllByRole("link", { name: "Safety Articles" })[0]).toHaveAttribute(
         "href",
-        "/#articles",
+        "/articles",
       );
     });
 
