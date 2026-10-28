@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing and Coverage
+coverage/
+*.lcov
+.nyc_output
+
+# Build and Production Outputs
+.next/
+out/
+build/
+dist/
+
+# Environment Variables & Secrets (NEVER commit real credentials)
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.cert
+
+# Allow environment templates
+!.env.example
+
+# Logs and Debug
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor Temporary Files
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# Vercel / Cloud Provider State
+.vercel
+.turbo
+
+# Temporary Cache Files
+.cache/
+.tmp/
+tmp/
+
+# Impeccable Platform-Specific Binaries (source & scripts are tracked, compiled binaries downloaded on demand)
+.agents/skills/impeccable/scripts/bin/*/impeccable
+.agents/skills/impeccable/scripts/bin/*/impeccable.exe
+.agent/skills/impeccable/scripts/bin/*/impeccable
+.agent/skills/impeccable/scripts/bin/*/impeccable.exe
