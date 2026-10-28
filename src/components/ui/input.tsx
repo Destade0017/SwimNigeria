@@ -21,6 +21,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       required,
       type = "text",
       "aria-describedby": ariaDescribedByProp,
+      "aria-invalid": ariaInvalidProp,
       ...props
     },
     ref,
@@ -29,6 +30,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const id = explicitId || generatedId;
     const errorId = `${id}-error`;
     const helperId = `${id}-helper`;
+
+    const isInvalid = Boolean(error) || ariaInvalidProp === true || ariaInvalidProp === "true";
 
     const describedByIds = [
       error ? errorId : null,
@@ -62,14 +65,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           type={type}
           disabled={disabled}
           required={required}
-          aria-invalid={error ? "true" : undefined}
+          aria-invalid={isInvalid ? "true" : undefined}
           aria-describedby={describedByIds || undefined}
           className={cn(
             "w-full min-h-[48px] px-3.5 py-2.5 text-base sm:text-sm rounded-lg",
             "bg-neutral-white text-neutral-900 placeholder:text-neutral-600/60",
             "border border-neutral-200 transition-colors duration-150",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1",
-            error
+            isInvalid
               ? "border-brand-red-600 focus-visible:ring-brand-red-600 focus-visible:border-brand-red-600"
               : "focus-visible:ring-brand-red-600 focus-visible:border-brand-red-600",
             "disabled:bg-neutral-100 disabled:opacity-60 disabled:cursor-not-allowed",

@@ -11,10 +11,18 @@ describe("Button Primitive Component", () => {
     expect(button).toHaveClass("bg-brand-red-600");
   });
 
-  it("supports explicit submit type", () => {
-    render(<Button type="submit">Submit Form</Button>);
-    const button = screen.getByRole("button", { name: /submit form/i });
-    expect(button).toHaveAttribute("type", "submit");
+  it("supports explicit submit and reset native types", () => {
+    const { rerender } = render(<Button type="submit">Submit Form</Button>);
+    expect(screen.getByRole("button", { name: /submit form/i })).toHaveAttribute("type", "submit");
+
+    rerender(<Button type="reset">Reset Form</Button>);
+    expect(screen.getByRole("button", { name: /reset form/i })).toHaveAttribute("type", "reset");
+  });
+
+  it("merges custom className without wiping base variant styles", () => {
+    render(<Button className="shadow-lg tracking-widest">Custom Button</Button>);
+    const button = screen.getByRole("button", { name: /custom button/i });
+    expect(button).toHaveClass("shadow-lg", "tracking-widest", "bg-brand-red-600");
   });
 
   it("renders with secondary, outline, and aquatic variants", () => {

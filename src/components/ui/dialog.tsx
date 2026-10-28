@@ -1,7 +1,23 @@
 "use client";
 
-import React, { forwardRef, useEffect, useId, useRef, useCallback } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useId,
+  useRef,
+  useCallback,
+  createContext,
+  useContext,
+} from "react";
 import { cn } from "@/lib/utils";
+
+interface DialogContextValue {
+  titleId: string;
+  descriptionId: string;
+  onClose?: () => void;
+}
+
+const DialogContext = createContext<DialogContextValue | null>(null);
 
 export interface DialogProps {
   isOpen: boolean;
@@ -19,11 +35,17 @@ export const Dialog = ({
   children,
   className,
   closeOnBackdropClick = true,
-  titleId,
-  descriptionId,
+  titleId: explicitTitleId,
+  descriptionId: explicitDescriptionId,
 }: DialogProps) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
+
+  const generatedTitleId = useId();
+  const generatedDescriptionId = useId();
+
+  const titleId = explicitTitleId || generatedTitleId;
+  const descriptionId = explicitDescriptionId || generatedDescriptionId;
 
   // Synchronize native HTML5 <dialog> modal state with React isOpen prop
   useEffect(() => {
@@ -31,7 +53,6 @@ export const Dialog = ({
     if (!dialogElement) return;
 
     if (isOpen) {
-      // Save previously focused element to return focus upon closing
       previouslyFocusedElementRef.current = document.activeElement as HTMLElement | null;
 
       if (!dialogElement.open) {
@@ -41,15 +62,21 @@ export const Dialog = ({
       if (dialogElement.open) {
         dialogElement.close();
       }
-      // Return focus to previously focused element
       previouslyFocusedElementRef.current?.focus?.();
     }
+
+    return () => {
+      if (dialogElement.open) {
+        dialogElement.close();
+      }
+      previouslyFocusedElementRef.current?.focus?.();
+    };
   }, [isOpen]);
 
   // Handle native Escape key cancellation
   const handleCancel = useCallback(
     (event: React.SyntheticEvent<HTMLDialogElement, Event>) => {
-      event.preventDefault(); // Prevent native close without React state update
+      event.preventDefault(); // Prevent uncoordinated native close
       onClose();
     },
     [onClose],
@@ -76,33 +103,34 @@ export const Dialog = ({
     [closeOnBackdropClick, onClose],
   );
 
-  if (!isOpen) return null;
-
   return (
-    <dialog
-      ref={dialogRef}
-      onCancel={handleCancel}
-      onClick={handleClick}
-      aria-modal="true"
-      aria-labelledby={titleId}
-      aria-describedby={descriptionId}
-      className={cn(
-        "fixed inset-0 m-auto z-50 p-0 border-0 bg-transparent overflow-visible",
-        "max-w-lg w-[calc(100%-2rem)] rounded-2xl shadow-xl",
-        "focus:outline-none",
-        className,
-      )}
-    >
-      <div
+    <DialogContext.Provider value={{ titleId, descriptionId, onClose }}>
+      <dialog
+        ref={dialogRef}
+        onCancel={handleCancel}
+        onClick={handleClick}
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         className={cn(
-          "bg-neutral-white text-neutral-900 rounded-2xl border border-neutral-200",
-          "p-6 shadow-2xl overflow-hidden flex flex-col gap-4",
-          "max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain",
+          "fixed inset-0 m-auto z-50 p-0 border-0 bg-transparent overflow-visible",
+          "max-w-lg w-[calc(100%-2rem)] rounded-2xl shadow-xl",
+          "focus:outline-none",
+          !isOpen && "hidden",
+          className,
         )}
       >
-        {children}
-      </div>
-    </dialog>
+        <div
+          className={cn(
+            "bg-neutral-white text-neutral-900 rounded-2xl border border-neutral-200",
+            "p-6 shadow-2xl overflow-hidden flex flex-col gap-4",
+            "max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain",
+          )}
+        >
+          {children}
+        </div>
+      </dialog>
+    </DialogContext.Provider>
   );
 };
 
@@ -112,7 +140,10 @@ export interface DialogHeaderProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 export const DialogHeader = forwardRef<HTMLDivElement, DialogHeaderProps>(
-  ({ className, children, onClose, showCloseButton = true, ...props }, ref) => {
+  ({ className, children, onClose: explicitOnClose, showCloseButton = true, ...props }, ref) => {
+    const context = useContext(DialogContext);
+    const onClose = explicitOnClose || context?.onClose;
+
     return (
       <div
         ref={ref}
@@ -156,12 +187,15 @@ export interface DialogTitleProps extends React.HTMLAttributes<HTMLHeadingElemen
 }
 
 export const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(
-  ({ className, as: Component = "h2", id, ...props }, ref) => {
+  ({ className, as: Component = "h2", id: explicitId, ...props }, ref) => {
+    const context = useContext(DialogContext);
     const defaultId = useId();
+    const id = explicitId || context?.titleId || defaultId;
+
     return (
       <Component
         ref={ref}
-        id={id || defaultId}
+        id={id}
         className={cn("text-xl font-bold text-neutral-900 leading-tight", className)}
         {...props}
       />
@@ -173,12 +207,15 @@ DialogTitle.displayName = "DialogTitle";
 export type DialogDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 
 export const DialogDescription = forwardRef<HTMLParagraphElement, DialogDescriptionProps>(
-  ({ className, id, ...props }, ref) => {
+  ({ className, id: explicitId, ...props }, ref) => {
+    const context = useContext(DialogContext);
     const defaultId = useId();
+    const id = explicitId || context?.descriptionId || defaultId;
+
     return (
       <p
         ref={ref}
-        id={id || defaultId}
+        id={id}
         className={cn("text-sm text-neutral-600 leading-relaxed", className)}
         {...props}
       />

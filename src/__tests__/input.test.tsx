@@ -17,6 +17,27 @@ describe("Input Primitive Component", () => {
     expect(input).toBeRequired();
   });
 
+  it("honors caller-supplied explicit id", () => {
+    render(<Input id="custom-user-id" label="Username" />);
+    const input = screen.getByLabelText(/username/i);
+    expect(input).toHaveAttribute("id", "custom-user-id");
+    const label = screen.getByText(/username/i).closest("label");
+    expect(label).toHaveAttribute("for", "custom-user-id");
+  });
+
+  it("generates unique ids for multiple inputs on the same page", () => {
+    render(
+      <div>
+        <Input label="First Name" />
+        <Input label="Last Name" />
+      </div>,
+    );
+
+    const firstInput = screen.getByLabelText(/first name/i);
+    const secondInput = screen.getByLabelText(/last name/i);
+    expect(firstInput.id).not.toBe(secondInput.id);
+  });
+
   it("associates error message with role='alert' and aria-invalid", () => {
     render(
       <Input label="Password" type="password" error="Password must be at least 8 characters" />,
@@ -28,6 +49,12 @@ describe("Input Primitive Component", () => {
     const errorAlert = screen.getByRole("alert");
     expect(errorAlert).toHaveTextContent("Password must be at least 8 characters");
     expect(input).toHaveAttribute("aria-describedby", expect.stringContaining(errorAlert.id));
+  });
+
+  it("preserves caller-supplied aria-invalid even without error prop", () => {
+    render(<Input label="Account Number" aria-invalid="true" />);
+    const input = screen.getByLabelText(/account number/i);
+    expect(input).toHaveAttribute("aria-invalid", "true");
   });
 
   it("associates helperText via aria-describedby", () => {

@@ -20,6 +20,12 @@ describe("Textarea Primitive Component", () => {
     expect(textarea).toHaveAttribute("aria-describedby", expect.stringContaining(alert.id));
   });
 
+  it("preserves caller-supplied aria-invalid even without error prop", () => {
+    render(<Textarea label="Incident Report" aria-invalid="true" />);
+    const textarea = screen.getByLabelText(/incident report/i);
+    expect(textarea).toHaveAttribute("aria-invalid", "true");
+  });
+
   it("allows user input typing", () => {
     render(<Textarea label="Notes" />);
     const textarea = screen.getByLabelText(/notes/i) as HTMLTextAreaElement;
