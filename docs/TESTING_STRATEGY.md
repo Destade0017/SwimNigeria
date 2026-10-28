@@ -94,22 +94,28 @@ graph BT
 
 ## 3. Pre-Deployment Verification Gate
 
-> **Phase 1 Implementation Note:** The following npm lifecycle and verification scripts define the mandatory automated quality gates to be configured in `package.json` during Phase 1 (Technology Scaffolding & Baseline Verification). They are not executable in Phase 0 prior to package initialization.
+> **Phase 1 Verification Status:** All verification scripts have been configured and verified in `package.json` under Phase 1. They form the non-negotiable automated quality gate for all subsequent engineering phases.
 
 Before any code is deployed or merged into `main`, the following verification pipeline must pass without errors:
 
 ```bash
-# 1. Type check
-npm run typecheck    # tsc --noEmit
+# 1. Code style formatting check
+npm run format:check   # prettier --check .
 
-# 2. Lint check
-npm run lint         # eslint .
+# 2. TypeScript type check (strict mode)
+npm run typecheck      # tsc --noEmit
 
-# 3. Unit and integration tests
-npm run test         # vitest run
+# 3. Lint check (zero warnings, zero errors)
+npm run lint           # eslint .
 
-# 4. Production build check
-npm run build        # next build (verifies static generation and bundling)
+# 4. Unit, component, and axe-core jsdom tests
+npm run test           # vitest run
+
+# 5. Production build check (turbopack bundling & prerendering)
+npm run build          # next build
+
+# 6. Browser-based end-to-end smoke & accessibility test
+npm run test:e2e       # playwright test (requires `npx playwright install chromium`)
 ```
 
 ---

@@ -4,16 +4,67 @@ SwimNigeria is a dedicated digital educational platform designed to make structu
 
 ---
 
-## Current Project Status: Phase 0 Completed
+## Current Project Status: Phase 1 Completed
 
-The project is currently at the conclusion of **Phase 0: Engineering Foundation & Project Preparation**. 
+The project has concluded **Phase 1: Technology Scaffolding & Baseline Verification**.
 
-In accordance with strict phase boundaries:
-* All architectural, security, database, design system, and testing specifications have been authored and verified.
-* Development rules and AI agent instructions are established in `AGENTS.md` and `docs/DEVELOPMENT_RULES.md`.
-* Verified AI agent skills (`impeccable`, `supabase`, `supabase-postgres-best-practices`, `vercel-react-best-practices`) have been installed into `.agents/skills/`.
-* Git repository is initialized with comprehensive ignore rules and `.env.example`.
-* **Zero application code, database migrations, or production services have been prematurely created.**
+In accordance with strict phase discipline:
+* Next.js App Router project initialized with TypeScript strict mode (`"strict": true`, zero `any` policy).
+* Tailwind CSS v4 configured with SwimNigeria Red-and-White brand design tokens.
+* Complete code quality tooling integrated: ESLint (flat config), Prettier, and zero conflicting rules.
+* Testing infrastructure established: Vitest (unit/component testing), React Testing Library, Playwright (E2E smoke testing), and axe-core (automated WCAG 2.1 AA accessibility audits).
+* **Zero business features, course data, mock learner records, or database migrations have been introduced.**
+
+---
+
+## Getting Started
+
+### Prerequisites
+* **Node.js:** Node.js `>= 20.9.0` (Verified on Node.js `v26.12.1`, macOS arm64).
+* **Package Manager:** `npm` `>= 10.0.0` (Verified on `npm` `11.20.0`).
+
+### 1. Installation
+Clone the repository and install dependencies using the locked versions:
+```bash
+npm install
+```
+
+### 2. Environment Setup
+Copy the environment template into an untracked local environment file:
+```bash
+cp .env.example .env.local
+```
+> **Security Directives:** Never commit `.env.local` or real API keys. Phase 1 scaffolding requires no live external credentials.
+
+### 3. Local Development Server
+Start the Next.js development server:
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) with your browser to view the operational foundation page.
+
+---
+
+## Quality Gates & Verification Commands
+
+All changes must pass the following automated quality gates before submitting or merging:
+
+| Check | Command | Description |
+| :--- | :--- | :--- |
+| **Formatting Verification** | `npm run format:check` | Verifies Prettier code style without making modifications. |
+| **Formatting Auto-Fix** | `npm run format:write` | Formats all supported files in-place using Prettier. |
+| **TypeScript Type Check** | `npm run typecheck` | Executes `tsc --noEmit` across all application and test files in strict mode. |
+| **Linting** | `npm run lint` | Runs ESLint 9 flat configuration with Core Web Vitals and TypeScript rules. |
+| **Unit & Component Tests** | `npm run test` | Runs Vitest in single-run mode with jsdom environment and accessibility checks. |
+| **Test Watcher** | `npm run test:watch` | Starts Vitest in interactive watch mode for local development. |
+| **Browser E2E Smoke Tests** | `npm run test:e2e` | Runs Playwright smoke tests and automated `@axe-core/playwright` accessibility audits. |
+| **Production Build** | `npm run build` | Compiles Next.js optimized production bundle and prerenders static routes. |
+| **Production Server** | `npm run start` | Boots the compiled production server locally on port 3000. |
+
+> **Browser Binary Setup for Playwright:** If running E2E tests for the first time in a fresh environment, install the required Playwright Chromium binary:
+> ```bash
+> npx playwright install chromium
+> ```
 
 ---
 
@@ -39,28 +90,21 @@ All foundational engineering documentation is organized within the [`docs/`](./d
 
 ---
 
-## Current Technology Stack Decisions (Provisional)
+## Current Technology Stack Decisions
 
-* **Frontend Framework:** Next.js (App Router) with TypeScript
-* **Styling:** Tailwind CSS with accessible headless primitives
-* **Database & Auth:** PostgreSQL and Supabase Auth with SSR HttpOnly cookies
+* **Frontend Framework:** Next.js 16 (App Router) with TypeScript 5.8
+* **Styling:** Tailwind CSS v4 with SwimNigeria design system tokens
+* **Quality Assurance:** ESLint, Prettier, Vitest, React Testing Library, Playwright, axe-core
+* **Database & Auth (Target):** PostgreSQL and Supabase Auth with SSR HttpOnly cookies (Phase 5)
 * **Video Delivery:** Unlisted YouTube Embeds with privacy facades (₦0 bandwidth egress)
 * **Email Delivery:** Resend API (3,000 free emails/month)
 * **Hosting Platform:** Vercel Hobby / Cloudflare Pages
 
 ---
 
-## How to Understand the Roadmap
+## Next Milestone: Phase 2
 
-The project is structured into 11 distinct phases documented in [`docs/IMPLEMENTATION_ROADMAP.md`](./docs/IMPLEMENTATION_ROADMAP.md). Each phase has explicit dependencies and measurable exit criteria. No phase may be started until the preceding phase has been reviewed and verified.
-
----
-
-## Next Milestone: Phase 1
-
-The immediate next step is **Phase 1: Technology Scaffolding & Baseline Verification**:
-1. Review and approve the Phase 0 foundation deliverables.
-2. Initialize the Next.js TypeScript application structure.
-3. Configure Tailwind CSS design tokens according to `docs/DESIGN_SYSTEM.md`.
-4. Configure testing infrastructure (Vitest) and static analysis (ESLint, Prettier).
-5. Verify clean execution of `typecheck`, `lint`, `test`, and `build` commands.
+The immediate next milestone is **Phase 2: Design System & Core UI Primitives**:
+1. Review and approve the Phase 1 scaffolding deliverables.
+2. Build reusable, accessible UI component primitives (`Button`, `Input`, `Card`, `Badge`, `Skeleton`) based on `docs/DESIGN_SYSTEM.md`.
+3. Construct layout containers and responsive navigation header/footer.

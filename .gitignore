@@ -7,12 +7,16 @@ node_modules/
 coverage/
 *.lcov
 .nyc_output
+test-results/
+playwright-report/
+blob-report/
 
 # Build and Production Outputs
 .next/
 out/
 build/
 dist/
+*.tsbuildinfo
 
 # Environment Variables & Secrets (NEVER commit real credentials)
 .env

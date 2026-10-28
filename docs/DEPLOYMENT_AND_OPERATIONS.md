@@ -36,10 +36,12 @@ Every automated deployment pipeline (GitHub Actions / Vercel Build Step) must ex
 
 ```mermaid
 graph LR
-    Push[Git Push to main] --> TypeCheck[tsc --noEmit<br/>Type Check]
+    Push[Git Push to main] --> Format[format:check<br/>Prettier Verification]
+    Format --> TypeCheck[tsc --noEmit<br/>Type Check]
     TypeCheck --> Lint[eslint .<br/>Linting]
     Lint --> Test[vitest run<br/>Unit & Integration Tests]
-    Test --> Build[next build<br/>Static Export & Bundle Check]
+    Test --> E2E[playwright test<br/>E2E & a11y Smoke]
+    E2E --> Build[next build<br/>Static Export & Bundle Check]
     Build --> Deploy[Deploy to Edge Production]
 ```
 

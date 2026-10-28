@@ -43,8 +43,10 @@ Adhere strictly to established conventions:
 
 ### 9. Run Appropriate Verification
 Verify every logically complete unit of work:
+* Run code formatting checks (`npm run format:check`).
 * Run type checks (`npm run typecheck`) and linter (`npm run lint`).
-* Run relevant unit and integration tests (`npm run test`).
+* Run unit, component, and accessibility tests (`npm run test`).
+* Run browser end-to-end smoke tests where appropriate (`npm run test:e2e`).
 * Verify production build compatibility (`npm run build`).
 
 ### 10. Review the Actual Diff
