@@ -13,7 +13,7 @@ test.describe("Native Browser Dialog Primitive Behavior", () => {
     await triggerBtn.click();
 
     // Verify dialog appears in browser top layer with open state
-    const dialog = page.locator("dialog");
+    const dialog = page.getByRole("dialog", { name: "Enrollment Confirmation" });
     await expect(dialog).toBeVisible();
 
     // Verify accessibility associations

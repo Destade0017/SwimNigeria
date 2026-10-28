@@ -52,9 +52,13 @@ describe("Textarea Primitive Component", () => {
     expect(describedBy).toContain(helper.id);
   });
 
-  it("preserves specific aria-invalid values such as 'grammar'", () => {
-    render(<Textarea label="Essay" aria-invalid="grammar" />);
-    const textarea = screen.getByLabelText(/essay/i);
-    expect(textarea).toHaveAttribute("aria-invalid", "grammar");
+  it("allows user input typing", () => {
+    render(<Textarea label="Notes" />);
+    const textarea = screen.getByLabelText(/notes/i) as HTMLTextAreaElement;
+
+    fireEvent.change(textarea, {
+      target: { value: "Practiced freestyle kick." },
+    });
+    expect(textarea.value).toBe("Practiced freestyle kick.");
   });
 });

@@ -20,6 +20,7 @@ interface DialogContextValue {
 const DialogContext = createContext<DialogContextValue | null>(null);
 
 export interface DialogProps {
+  id?: string;
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
@@ -31,6 +32,7 @@ export interface DialogProps {
 }
 
 export const Dialog = ({
+  id,
   isOpen,
   onClose,
   children,
@@ -109,6 +111,7 @@ export const Dialog = ({
     <DialogContext.Provider value={{ titleId, descriptionId, onClose }}>
       <dialog
         ref={dialogRef}
+        id={id}
         onCancel={handleCancel}
         onClick={handleClick}
         aria-modal="true"
