@@ -84,7 +84,7 @@ export function SiteFooter() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="/#about"
+                  href="/about"
                   className="transition-colors hover:text-brand-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600"
                 >
                   About Our Mission
@@ -92,18 +92,10 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="transition-colors hover:text-brand-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600"
                 >
                   Contact &amp; Inquiries
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#verify"
-                  className="transition-colors hover:text-brand-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600"
-                >
-                  Certificate Verification
                 </Link>
               </li>
             </ul>

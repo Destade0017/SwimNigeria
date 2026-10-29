@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +12,18 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { getPublishedArticles } from "@/lib/articles";
+
+export const metadata: Metadata = {
+  title: "SwimNigeria — Structured Swimming Education & Water Safety",
+  description:
+    "Accessible, structured swimming education and critical water safety principles designed for Nigerian learners, families, and communities.",
+  openGraph: {
+    title: "SwimNigeria — Structured Swimming Education & Water Safety",
+    description:
+      "Demystifying water fear, teaching buoyancy mechanics, and fostering life-saving aquatic safety literacy across Nigeria.",
+    type: "website",
+  },
+};
 
 export default function HomePage() {
   return (
@@ -89,21 +102,32 @@ export default function HomePage() {
         className="py-16 sm:py-24 border-t border-neutral-200 bg-neutral-white"
       >
         <Container>
-          <div className="max-w-2xl">
-            <Badge variant="aquatic" className="mb-3">
-              Educational Approach
-            </Badge>
-            <h2
-              id="value-heading"
-              className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl"
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 max-w-2xl sm:max-w-none">
+            <div className="max-w-2xl">
+              <Badge variant="aquatic" className="mb-3">
+                Educational Approach
+              </Badge>
+              <h2
+                id="value-heading"
+                className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl"
+              >
+                Why Structured Aquatic Education Matters
+              </h2>
+              <p className="mt-3 text-base text-neutral-700 leading-relaxed">
+                Drowning remains a persistent, preventable hazard. SwimNigeria provides the
+                theoretical knowledge and step-by-step technical comprehension that prepares
+                learners to approach practical water sessions safely.
+              </p>
+            </div>
+            <Link
+              href="/about"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-5 py-2.5 text-sm font-semibold text-neutral-900 shadow-xs hover:bg-neutral-50 hover:border-neutral-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 shrink-0"
             >
-              Why Structured Aquatic Education Matters
-            </h2>
-            <p className="mt-3 text-base text-neutral-700 leading-relaxed">
-              Drowning remains a persistent, preventable hazard. SwimNigeria provides the
-              theoretical knowledge and step-by-step technical comprehension that prepares learners
-              to approach practical water sessions safely.
-            </p>
+              About Our Mission{" "}
+              <span aria-hidden="true" className="ml-1.5">
+                →
+              </span>
+            </Link>
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -550,20 +574,31 @@ export default function HomePage() {
         className="py-16 sm:py-24 border-t border-neutral-200 bg-neutral-white"
       >
         <Container>
-          <div className="max-w-2xl">
-            <Badge variant="brand" className="mb-3">
-              Get in Touch
-            </Badge>
-            <h2
-              id="contact-heading"
-              className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl"
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 max-w-2xl sm:max-w-none">
+            <div className="max-w-2xl">
+              <Badge variant="brand" className="mb-3">
+                Get in Touch
+              </Badge>
+              <h2
+                id="contact-heading"
+                className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl"
+              >
+                Community &amp; Inquiries
+              </h2>
+              <p className="mt-3 text-base text-neutral-700 leading-relaxed">
+                SwimNigeria is actively preparing for launch. We welcome inquiries from swimming
+                educators, community organizers, and learners committed to aquatic safety.
+              </p>
+            </div>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-5 py-2.5 text-sm font-semibold text-neutral-900 shadow-xs hover:bg-neutral-50 hover:border-neutral-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 shrink-0"
             >
-              Community &amp; Inquiries
-            </h2>
-            <p className="mt-3 text-base text-neutral-700 leading-relaxed">
-              SwimNigeria is actively preparing for launch. We welcome inquiries from swimming
-              educators, community organizers, and learners committed to aquatic safety.
-            </p>
+              Contact Directory{" "}
+              <span aria-hidden="true" className="ml-1.5">
+                →
+              </span>
+            </Link>
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

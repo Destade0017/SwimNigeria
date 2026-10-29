@@ -8,7 +8,10 @@ test.describe("SwimNigeria Public Entry Smoke & Accessibility", () => {
     await page.goto("/");
 
     // Verify document title and semantic heading (H1)
-    await expect(page).toHaveTitle(/SwimNigeria/);
+    await expect(page).toHaveTitle(/SwimNigeria — Structured Swimming Education & Water Safety/);
+    const metaDesc = page.locator('meta[name="description"]');
+    await expect(metaDesc).toHaveAttribute("content", /Accessible, structured swimming education/);
+
     const heading = page.getByRole("heading", {
       level: 1,
       name: /SwimNigeria — Structured Swimming Education/i,

@@ -7,8 +7,8 @@ const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Courses", href: "/#courses" },
   { label: "Safety Articles", href: "/articles" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function SiteHeader() {

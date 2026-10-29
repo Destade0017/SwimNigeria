@@ -22,6 +22,14 @@ describe("HomePage Component (Phase 3A)", () => {
 
     expect(secondaryCta).toBeInTheDocument();
     expect(secondaryCta).toHaveAttribute("href", "#safety");
+
+    const aboutLink = screen.getByRole("link", { name: /About Our Mission/i });
+    expect(aboutLink).toBeInTheDocument();
+    expect(aboutLink).toHaveAttribute("href", "/about");
+
+    const contactLink = screen.getByRole("link", { name: /Contact Directory/i });
+    expect(contactLink).toBeInTheDocument();
+    expect(contactLink).toHaveAttribute("href", "/contact");
   });
 
   it("renders all major section landmarks and headings (H2)", () => {
@@ -76,5 +84,14 @@ describe("HomePage Component (Phase 3A)", () => {
     expect(
       screen.getByText(/Online educational lessons teach theoretical comprehension/i),
     ).toBeInTheDocument();
+  });
+
+  it("exports descriptive homepage-specific metadata", async () => {
+    const { metadata } = await import("@/app/page");
+    expect(metadata.title).toBe("SwimNigeria — Structured Swimming Education & Water Safety");
+    expect(metadata.description).toContain("Accessible, structured swimming education");
+    expect(metadata.openGraph?.title).toBe(
+      "SwimNigeria — Structured Swimming Education & Water Safety",
+    );
   });
 });

@@ -62,6 +62,11 @@ describe("Layout Foundations (Phase 2B)", () => {
         "href",
         "/articles",
       );
+      expect(screen.getAllByRole("link", { name: "About" })[0]).toHaveAttribute("href", "/about");
+      expect(screen.getAllByRole("link", { name: "Contact" })[0]).toHaveAttribute(
+        "href",
+        "/contact",
+      );
     });
 
     it("provides an 'Explore Courses' call to action button", () => {
@@ -134,6 +139,20 @@ describe("Layout Foundations (Phase 2B)", () => {
       expect(
         screen.getByText(/structured swimming instruction and vital water safety/i),
       ).toBeInTheDocument();
+
+      expect(screen.getByRole("link", { name: "About Our Mission" })).toHaveAttribute(
+        "href",
+        "/about",
+      );
+      expect(screen.getByRole("link", { name: "Contact & Inquiries" })).toHaveAttribute(
+        "href",
+        "/contact",
+      );
+
+      // Verify dead anchor /#verify is not rendered
+      expect(
+        screen.queryByRole("link", { name: /Certificate Verification/i }),
+      ).not.toBeInTheDocument();
     });
 
     it("renders mandatory verbatim safety & educational disclaimer", () => {
