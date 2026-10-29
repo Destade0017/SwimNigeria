@@ -13,6 +13,7 @@ This document records the foundational architectural and technical decisions mad
 * **ADR-005:** Tamper-Evident Certificate Verification via Unique Cryptographic NanoIDs
 * **ADR-006:** AI Development Workflow and Skill Architecture Integration
 * **ADR-007:** Dominant Red & White Brand Color Strategy with Slate Neutrals
+* **ADR-008:** Pedagogical Module Hierarchy in Course Curriculum (Course → Module → Lesson)
 
 ---
 
@@ -109,3 +110,18 @@ This document records the foundational architectural and technical decisions mad
   3. *Vibrant Red & Clean White with Deep Slate Neutrals & Water Accents:* Red (`#DC2626`) serves as the dominant call-to-action and brand identifier; Crisp White (`#FFFFFF`) serves as the clean card and background canvas; deep slate (`#0F172A`) provides soft high-contrast typography; subtle aquatic blue (`#0284C7`) provides water context and progress indicator fill.
 * **Reasoning:** Preserves the client's confirmed brand colors while adhering to modern WCAG AA contrast ratios and UX best practices.
 * **Consequences:** All components adhere strictly to the token scale defined in `docs/DESIGN_SYSTEM.md`.
+
+---
+
+## ADR-008: Pedagogical Module Hierarchy in Course Curriculum (Course → Module → Lesson)
+
+* **Status:** **Accepted**
+* **Date:** 2026-10-29
+* **Context:** In Phase 4.1, the course registry introduced `CourseModule` grouping ordered lessons (`Course -> CourseModule -> Lesson`) to represent structured syllabus stages (e.g., *Module 1: The Physiology & Psychology of Water Fear*). However, the initial draft of `docs/DATABASE_DESIGN.md` §3.2 directly linked `lessons` to `courses` (`course_id: UUID`) without an intermediate `modules` entity.
+* **Options Considered:**
+  1. *Flat Course-to-Lesson Relation with Naming Prefixes:* Omit modules in the database and prefix lesson titles (e.g. "1.1: ..."). This loses module-level descriptions, explicit module ordering, and module-level progress boundaries.
+  2. *Denormalized Module Columns on `lessons`:* Add `module_title`, `module_slug`, and `module_order_index` directly to each lesson row. This avoids an extra table but causes redundant text storage and update anomalies.
+  3. *Dedicated Relational `modules` Table (`courses ||--o{ modules ||--o{ lessons`):* Model modules as first-class entities with `id`, `course_id`, `title`, `slug`, `description`, `order_index`, and `is_published`.
+* **Reasoning:** Structured aquatic education requires distinct pedagogical phases (Acclimatization → Buoyancy → Gliding → Propulsion). A dedicated module layer preserves curriculum hierarchy, enables module-level progress tracking in Phase 6, and cleanly separates syllabus exploration from individual lesson playback.
+* **Consequences:** The course registry in `src/lib/courses.ts` models `Course -> CourseModule -> Lesson`. In Phase 6 (Database Integration), the database migration will implement the dedicated `modules` table (`modules` with `course_id`, `title`, `slug`, `description`, `order_index`, `is_published`). No database changes or migrations are needed in Phase 4.
+
