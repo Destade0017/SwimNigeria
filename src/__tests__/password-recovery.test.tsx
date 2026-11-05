@@ -251,7 +251,7 @@ describe("Password Recovery & Reset (Phase 5.4)", () => {
       expect(
         screen.getByRole("heading", { level: 2, name: /create new password/i }),
       ).toBeInTheDocument();
-      expect(screen.getByLabelText(/new password/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/^new password/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/confirm new password/i)).toBeInTheDocument();
       expect(screen.getByRole("button", { name: /update password/i })).toBeInTheDocument();
     });

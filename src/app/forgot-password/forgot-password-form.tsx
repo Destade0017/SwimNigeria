@@ -22,8 +22,8 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { forgotPasswordAction, INITIAL_FORGOT_PASSWORD_STATE } from "./actions";
+import { INITIAL_FORGOT_PASSWORD_STATE } from "@/lib/auth/form-state";
+import { forgotPasswordAction } from "./actions";
 
 export function ForgotPasswordForm() {
   const [state, formAction, isPending] = useActionState(

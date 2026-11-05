@@ -25,18 +25,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getTrustedAppOrigin, SupabaseConfigurationError } from "@/lib/supabase/env";
 import { sanitizeRedirectUrl } from "@/lib/supabase/redirect";
 import { loginSchema, type LoginFieldErrors } from "@/lib/validation/auth";
-
-export interface LoginActionResult {
-  success: boolean;
-  redirectTo?: string;
-  isUnverified?: boolean;
-  email?: string;
-  errors?: LoginFieldErrors;
-}
-
-export const INITIAL_LOGIN_STATE: LoginActionResult = {
-  success: false,
-};
+import { type LoginActionResult, type LogoutActionResult } from "@/lib/auth/form-state";
 
 /**
  * Core login business logic.
@@ -208,11 +197,6 @@ export async function loginLearnerAction(
   const candidateNext = formData.get("next") as string | null;
 
   return loginLearner(rawInput, candidateNext);
-}
-
-export interface LogoutActionResult {
-  success: boolean;
-  error?: string;
 }
 
 /**

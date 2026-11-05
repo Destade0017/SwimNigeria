@@ -26,7 +26,8 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { registerLearnerAction, INITIAL_REGISTER_STATE } from "./actions";
+import { INITIAL_REGISTER_STATE } from "@/lib/auth/form-state";
+import { registerLearnerAction } from "./actions";
 
 interface RegisterFormProps {
   returnUrl?: string;

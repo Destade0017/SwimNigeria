@@ -26,17 +26,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getTrustedAppOrigin, SupabaseConfigurationError } from "@/lib/supabase/env";
 import { sanitizeRedirectUrl } from "@/lib/supabase/redirect";
 import { registerSchema, type RegisterFieldErrors } from "@/lib/validation/auth";
-
-export interface RegisterActionResult {
-  success: boolean;
-  email?: string;
-  fullName?: string;
-  errors?: RegisterFieldErrors;
-}
-
-export const INITIAL_REGISTER_STATE: RegisterActionResult = {
-  success: false,
-};
+import { type RegisterActionResult } from "@/lib/auth/form-state";
 
 /**
  * Core registration business logic.

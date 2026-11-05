@@ -26,8 +26,8 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { loginLearnerAction, INITIAL_LOGIN_STATE } from "./actions";
+import { INITIAL_LOGIN_STATE } from "@/lib/auth/form-state";
+import { loginLearnerAction } from "./actions";
 
 interface LoginFormProps {
   returnUrl?: string;

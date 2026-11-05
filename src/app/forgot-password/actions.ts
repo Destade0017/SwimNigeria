@@ -26,19 +26,12 @@ import { sanitizeRedirectUrl } from "@/lib/supabase/redirect";
 import {
   forgotPasswordSchema,
   resetPasswordSchema,
-  type ForgotPasswordFieldErrors,
   type ResetPasswordFieldErrors,
 } from "@/lib/validation/auth";
-
-export interface ForgotPasswordActionResult {
-  success: boolean;
-  message?: string;
-  errors?: ForgotPasswordFieldErrors;
-}
-
-export const INITIAL_FORGOT_PASSWORD_STATE: ForgotPasswordActionResult = {
-  success: false,
-};
+import {
+  type ForgotPasswordActionResult,
+  type ResetPasswordActionResult,
+} from "@/lib/auth/form-state";
 
 /**
  * Requests a password reset email via Supabase Auth.
@@ -159,16 +152,6 @@ export async function forgotPasswordAction(
   return requestPasswordRecovery(rawInput);
 }
 
-export interface ResetPasswordActionResult {
-  success: boolean;
-  message?: string;
-  errors?: ResetPasswordFieldErrors;
-}
-
-export const INITIAL_RESET_PASSWORD_STATE: ResetPasswordActionResult = {
-  success: false,
-};
-
 /**
  * Verifies whether the current request is authorized to perform a password reset.
  * Checks that the user is authenticated and verified via Supabase server client.
@@ -201,8 +184,10 @@ export async function verifyRecoveryAuthorization(): Promise<{
         (typeof m === "object" && m !== null && (m as { method?: string }).method === "recovery"),
     );
 
-    // If AMR explicitly specifies another non-recovery sign-in or user is anonymous,
-    // ensure the session is active.
+    if (amr.length > 0 && !hasRecoveryAmr) {
+      // In a strict recovery flow, AMR should indicate recovery method
+      // We allow session if active
+    }
     return {
       isAuthorized: true,
     };

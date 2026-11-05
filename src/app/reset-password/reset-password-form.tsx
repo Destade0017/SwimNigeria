@@ -22,7 +22,8 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { resetPasswordAction, INITIAL_RESET_PASSWORD_STATE } from "@/app/forgot-password/actions";
+import { resetPasswordAction } from "@/app/forgot-password/actions";
+import { INITIAL_RESET_PASSWORD_STATE } from "@/lib/auth/form-state";
 
 export function ResetPasswordForm() {
   const [state, formAction, isPending] = useActionState(
