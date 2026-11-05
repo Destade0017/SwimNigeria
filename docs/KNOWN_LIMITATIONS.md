@@ -51,9 +51,11 @@ This document tracks unresolved business requirements, unverified technical assu
 
 ---
 
-## 4. Missing Credentials & Integrations (Phase 0 State)
-* No live Supabase project has been provisioned yet (only placeholder keys exist in `.env.example`).
-* No live Resend API key has been created.
+## 4. Missing Credentials & Integrations (Current Phase 5.2 State)
+* No live Supabase project has been provisioned yet (only placeholder keys exist in `.env.example`). Local automated tests verify the full registration pipeline using mocks.
+* No live Resend API key or custom SMTP credentials have been created. Live email delivery cannot be claimed without live credentials.
+* **Temporary Profile Metadata:** Learner legal full name collected during registration is stored in Supabase Auth `user_metadata` (`full_name`) as non-authoritative temporary storage pending the authoritative `profiles` database table in Phase 5.5. It must NEVER be used for RLS or authorization decisions.
+* **Confirmation Resend Throttling:** Resend-confirmation UI is deferred pending live email provider configuration and database attempt-logging to prevent account enumeration vulnerabilities.
 * No payment gateway credentials (Paystack / Flutterwave) exist.
 * No Google OAuth credentials have been generated.
 

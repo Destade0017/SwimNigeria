@@ -14,6 +14,7 @@ This document records the foundational architectural and technical decisions mad
 * **ADR-006:** AI Development Workflow and Skill Architecture Integration
 * **ADR-007:** Dominant Red & White Brand Color Strategy with Slate Neutrals
 * **ADR-008:** Pedagogical Module Hierarchy in Course Curriculum (Course → Module → Lesson)
+* **ADR-009:** Learner Registration, Server-Side Zod Validation, Non-Authoritative Metadata, and Email Verification
 
 ---
 
@@ -124,4 +125,18 @@ This document records the foundational architectural and technical decisions mad
   3. *Dedicated Relational `modules` Table (`courses ||--o{ modules ||--o{ lessons`):* Model modules as first-class entities with `id`, `course_id`, `title`, `slug`, `description`, `order_index`, and `is_published`.
 * **Reasoning:** Structured aquatic education requires distinct pedagogical phases (Acclimatization → Buoyancy → Gliding → Propulsion). A dedicated module layer preserves curriculum hierarchy, enables module-level progress tracking in Phase 6, and cleanly separates syllabus exploration from individual lesson playback.
 * **Consequences:** The course registry in `src/lib/courses.ts` models `Course -> CourseModule -> Lesson`. In Phase 6 (Database Integration), the database migration will implement the dedicated `modules` table (`modules` with `course_id`, `title`, `slug`, `description`, `order_index`, `is_published`). No database changes or migrations are needed in Phase 4.
+
+---
+
+## ADR-009: Learner Registration, Server-Side Zod Validation, Non-Authoritative Metadata, and Email Verification
+
+* **Status:** **Accepted**
+* **Date:** 2026-10-29
+* **Context:** Phase 5.2 introduces learner registration and mandatory email verification. The application requires robust validation, password strength guarantees (PRD §3.4, Security §2.1), enumeration-resistant feedback, and legal full name capture for eventual certificate minting without prematurely adding database migrations or service-role keys.
+* **Options Considered:**
+  1. *Immediate Database Profiles Table & Migration:* Create a PostgreSQL table (`profiles`) in Phase 5.2. This violates phase discipline and complicates local development before live Supabase credentials exist.
+  2. *Client-Only Validation:* Rely on HTML5 or React client validation. Unacceptable for security invariants.
+  3. *Server Action + Shared Zod Validation + Non-Authoritative Supabase Auth Metadata:* Validate input server-side with Zod. Call `supabase.auth.signUp` passing the trimmed full name in `options.data.full_name`. Handle duplicate emails consistently to resist account enumeration. Enforce email verification via PKCE exchange at `/auth/callback?next=/courses`.
+* **Reasoning:** Option 3 minimizes scope, eliminates premature database dependencies, protects against enumeration attacks, and maintains zero service-role key exposure. Storing `full_name` in `user_metadata` provides immediate non-authoritative profile storage that will be migrated to the authoritative `profiles` table in Phase 5.5.
+* **Consequences:** `user_metadata` must never be used for authorization decisions or RLS policies. The registration UI makes clear that email verification is mandatory before access to authenticated features is granted. No `/login` link is rendered until Phase 5.3.
 

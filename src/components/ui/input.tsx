@@ -6,6 +6,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   error?: string;
   helperText?: string;
   containerClassName?: string;
+  rightElement?: React.ReactNode;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -20,6 +21,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       disabled,
       required,
       type = "text",
+      rightElement,
       "aria-describedby": ariaDescribedByProp,
       "aria-invalid": ariaInvalidProp,
       ...props
@@ -65,27 +67,35 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           </label>
         )}
 
-        <input
-          ref={ref}
-          id={id}
-          type={type}
-          disabled={disabled}
-          required={required}
-          aria-invalid={computedAriaInvalid}
-          aria-describedby={describedByIds || undefined}
-          className={cn(
-            "w-full min-h-[48px] px-3.5 py-2.5 text-base sm:text-sm rounded-lg",
-            "bg-neutral-white text-neutral-900 placeholder:text-neutral-600/60",
-            "border border-neutral-200 transition-colors duration-150",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1",
-            isInvalid
-              ? "border-brand-red-600 focus-visible:ring-brand-red-600 focus-visible:border-brand-red-600"
-              : "focus-visible:ring-brand-red-600 focus-visible:border-brand-red-600",
-            "disabled:bg-neutral-100 disabled:opacity-60 disabled:cursor-not-allowed",
-            className,
+        <div className="relative w-full">
+          <input
+            ref={ref}
+            id={id}
+            type={type}
+            disabled={disabled}
+            required={required}
+            aria-invalid={computedAriaInvalid}
+            aria-describedby={describedByIds || undefined}
+            className={cn(
+              "w-full min-h-[48px] px-3.5 py-2.5 text-base sm:text-sm rounded-lg",
+              rightElement ? "pr-12" : undefined,
+              "bg-neutral-white text-neutral-900 placeholder:text-neutral-600/60",
+              "border border-neutral-200 transition-colors duration-150",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1",
+              isInvalid
+                ? "border-brand-red-600 focus-visible:ring-brand-red-600 focus-visible:border-brand-red-600"
+                : "focus-visible:ring-brand-red-600 focus-visible:border-brand-red-600",
+              "disabled:bg-neutral-100 disabled:opacity-60 disabled:cursor-not-allowed",
+              className,
+            )}
+            {...props}
+          />
+          {rightElement && (
+            <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center pr-1.5">
+              {rightElement}
+            </div>
           )}
-          {...props}
-        />
+        </div>
 
         {error && (
           <p
