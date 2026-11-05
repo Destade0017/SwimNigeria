@@ -89,13 +89,10 @@ test.describe("Learner Registration Page (/register)", () => {
     await expect(passwordInput).toHaveAttribute("type", "password");
   });
 
-  test("does not display a dead or broken link to /login", async ({ page }) => {
-    // Verify no anchor link points to /login
-    const loginLink = page.locator('a[href="/login"]');
-    await expect(loginLink).toHaveCount(0);
-
-    // Verify informational phase notice is rendered
-    await expect(page.getByText(/learner login available in phase 5.3/i)).toBeVisible();
+  test("renders a working navigation link to /login", async ({ page }) => {
+    const loginLink = page.getByRole("link", { name: /sign in/i });
+    await expect(loginLink).toBeVisible();
+    await expect(loginLink).toHaveAttribute("href", "/login");
   });
 
   test("passes automated WCAG 2.1 AA accessibility checks on desktop", async ({ page }) => {

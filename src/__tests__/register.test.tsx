@@ -273,14 +273,12 @@ describe("Learner Registration Flow & UI (Phase 5.2)", () => {
       ).toBeInTheDocument();
     });
 
-    it("does not render a dead or broken link to /login", () => {
+    it("renders a working link to /login in Phase 5.3", () => {
       render(<RegisterForm />);
 
-      const links = screen.queryAllByRole("link");
-      const loginLink = links.find((l) => l.getAttribute("href") === "/login");
-      expect(loginLink).toBeUndefined();
-
-      expect(screen.getByText(/learner login available in phase 5.3/i)).toBeInTheDocument();
+      const loginLink = screen.getByRole("link", { name: /sign in/i });
+      expect(loginLink).toBeInTheDocument();
+      expect(loginLink).toHaveAttribute("href", "/login");
     });
 
     it("meets automated accessibility standards (axe-core zero violations)", async () => {

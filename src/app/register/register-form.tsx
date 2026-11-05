@@ -351,16 +351,18 @@ export function RegisterForm({ returnUrl = "/courses" }: RegisterFormProps) {
       </CardContent>
 
       <CardFooter className="flex flex-col items-center justify-center border-t border-neutral-100 pt-4 text-xs sm:text-sm text-neutral-600 text-center">
-        {/*
-          Phase Discipline Note:
-          Login route (/login) is scheduled for Phase 5.3.
-          Per project directive, we do not render a misleading or broken link to /login.
-        */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <span>Already registered?</span>
-          <Badge variant="outline" className="text-neutral-700 bg-neutral-50 font-normal">
-            Learner Login available in Phase 5.3
-          </Badge>
+        <div className="flex flex-wrap items-center justify-center gap-1.5">
+          <span>Already have an account?</span>
+          <Link
+            href={
+              returnUrl && returnUrl !== "/courses"
+                ? `/login?next=${encodeURIComponent(returnUrl)}`
+                : "/login"
+            }
+            className="font-semibold text-brand-red-600 hover:text-brand-red-700 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 rounded-sm"
+          >
+            Sign in
+          </Link>
         </div>
       </CardFooter>
     </Card>

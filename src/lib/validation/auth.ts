@@ -57,3 +57,31 @@ export type RegisterFieldErrors = {
   confirmPassword?: string;
   form?: string;
 };
+
+/**
+ * Login Input Schema
+ *
+ * Responsibilities:
+ * - Validates email and password format before invoking authentication.
+ * - Enforces required fields, string trimming, and email formatting.
+ */
+export const loginSchema = z.object({
+  email: z
+    .string("Email address is required.")
+    .trim()
+    .toLowerCase()
+    .email("Please enter a valid email address.")
+    .max(255, "Email address cannot exceed 255 characters."),
+  password: z
+    .string("Password is required.")
+    .min(1, "Password is required.")
+    .max(72, "Password cannot exceed 72 characters."),
+});
+
+export type LoginInput = z.infer<typeof loginSchema>;
+
+export type LoginFieldErrors = {
+  email?: string;
+  password?: string;
+  form?: string;
+};

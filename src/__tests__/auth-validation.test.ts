@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { registerSchema } from "@/lib/validation/auth";
+import { registerSchema, loginSchema } from "@/lib/validation/auth";
 
 describe("Registration Schema Validation (Zod)", () => {
   const validPayload = {
@@ -195,5 +195,68 @@ describe("Registration Schema Validation (Zod)", () => {
         expect((result.data as Record<string, unknown>).is_verified).toBeUndefined();
       }
     });
+  });
+});
+
+describe("Login Schema Validation (Zod)", () => {
+  const validLogin = {
+    email: "amina.bello@example.com",
+    password: "Password123",
+  };
+
+  it("successfully parses valid login payload", () => {
+    const result = loginSchema.safeParse(validLogin);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.email).toBe("amina.bello@example.com");
+      expect(result.data.password).toBe("Password123");
+    }
+  });
+
+  it("trims and normalizes email address to lowercase", () => {
+    const result = loginSchema.safeParse({
+      email: "  AMINA@EXAMPLE.COM  ",
+      password: "Password123",
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.email).toBe("amina@example.com");
+    }
+  });
+
+  it("rejects missing email", () => {
+    const result = loginSchema.safeParse({
+      password: "Password123",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects invalid email format", () => {
+    const result = loginSchema.safeParse({
+      email: "not-an-email",
+      password: "Password123",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects missing or empty password", () => {
+    const result = loginSchema.safeParse({
+      email: "amina@example.com",
+      password: "",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("strips malicious injected payload fields (roles, metadata)", () => {
+    const result = loginSchema.safeParse({
+      ...validLogin,
+      role: "admin",
+      user_metadata: { role: "admin" },
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect((result.data as Record<string, unknown>).role).toBeUndefined();
+      expect((result.data as Record<string, unknown>).user_metadata).toBeUndefined();
+    }
   });
 });
