@@ -223,12 +223,14 @@ export function LoginForm({ returnUrl = "/courses" }: LoginFormProps) {
           </Link>
         </div>
 
-        {/* Phase Discipline Note: /forgot-password will be implemented in Phase 5.4 */}
         <div className="flex items-center gap-1.5 text-xs text-neutral-500 pt-1">
           <span>Need help recovering password?</span>
-          <Badge variant="outline" className="text-neutral-600 bg-neutral-50 font-normal text-xs">
-            Password reset in Phase 5.4
-          </Badge>
+          <Link
+            href="/forgot-password"
+            className="font-semibold text-brand-red-600 hover:text-brand-red-700 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 rounded-sm"
+          >
+            Reset password
+          </Link>
         </div>
       </CardFooter>
     </Card>

@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { registerSchema, loginSchema } from "@/lib/validation/auth";
+import {
+  registerSchema,
+  loginSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
+} from "@/lib/validation/auth";
 
 describe("Registration Schema Validation (Zod)", () => {
   const validPayload = {
@@ -258,5 +263,81 @@ describe("Login Schema Validation (Zod)", () => {
       expect((result.data as Record<string, unknown>).role).toBeUndefined();
       expect((result.data as Record<string, unknown>).user_metadata).toBeUndefined();
     }
+  });
+});
+
+describe("Forgot Password Schema Validation (Zod)", () => {
+  it("validates correct email", () => {
+    const result = forgotPasswordSchema.safeParse({
+      email: "learner@example.com",
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.email).toBe("learner@example.com");
+    }
+  });
+
+  it("normalizes email to lowercase and trims whitespace", () => {
+    const result = forgotPasswordSchema.safeParse({
+      email: "  LEARNER@EXAMPLE.COM  ",
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.email).toBe("learner@example.com");
+    }
+  });
+
+  it("rejects invalid email address", () => {
+    const result = forgotPasswordSchema.safeParse({
+      email: "not-an-email",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects missing email", () => {
+    const result = forgotPasswordSchema.safeParse({});
+    expect(result.success).toBe(false);
+  });
+});
+
+describe("Reset Password Schema Validation (Zod)", () => {
+  it("validates valid password and confirmation", () => {
+    const result = resetPasswordSchema.safeParse({
+      password: "StrongPassword123",
+      confirmPassword: "StrongPassword123",
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.password).toBe("StrongPassword123");
+    }
+  });
+
+  it("rejects password shorter than 8 characters", () => {
+    const result = resetPasswordSchema.safeParse({
+      password: "short",
+      confirmPassword: "short",
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors.password?.[0]).toMatch(/at least 8 characters/i);
+    }
+  });
+
+  it("rejects password mismatch", () => {
+    const result = resetPasswordSchema.safeParse({
+      password: "Password123",
+      confirmPassword: "DifferentPassword123",
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors.confirmPassword?.[0]).toMatch(
+        /passwords do not match/i,
+      );
+    }
+  });
+
+  it("rejects missing fields", () => {
+    const result = resetPasswordSchema.safeParse({});
+    expect(result.success).toBe(false);
   });
 });

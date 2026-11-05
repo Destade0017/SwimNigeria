@@ -85,3 +85,55 @@ export type LoginFieldErrors = {
   password?: string;
   form?: string;
 };
+
+/**
+ * Forgot Password Input Schema
+ *
+ * Responsibilities:
+ * - Validates email format for password recovery requests.
+ * - Normalizes email (trim, lowercase).
+ */
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string("Email address is required.")
+    .trim()
+    .toLowerCase()
+    .email("Please enter a valid email address.")
+    .max(255, "Email address cannot exceed 255 characters."),
+});
+
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
+
+export type ForgotPasswordFieldErrors = {
+  email?: string;
+  form?: string;
+};
+
+/**
+ * Reset Password Input Schema
+ *
+ * Requirements:
+ * - Validates new password and password confirmation.
+ * - Minimum length: 8 characters, maximum 72 characters.
+ * - Confirms password matching without arbitrary complexity restrictions.
+ */
+export const resetPasswordSchema = z
+  .object({
+    password: z
+      .string("Password is required.")
+      .min(8, "Password must be at least 8 characters long.")
+      .max(72, "Password cannot exceed 72 characters."),
+    confirmPassword: z.string("Please confirm your password."),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match.",
+    path: ["confirmPassword"],
+  });
+
+export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+
+export type ResetPasswordFieldErrors = {
+  password?: string;
+  confirmPassword?: string;
+  form?: string;
+};

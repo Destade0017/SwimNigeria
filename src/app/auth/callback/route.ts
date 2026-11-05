@@ -38,15 +38,22 @@ export async function GET(request: Request) {
     }
 
     const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
       // Exchange error (expired, invalid, or reused code): return safe generic error redirect
       return NextResponse.redirect(`${origin}/?auth_error=exchange_failed`);
     }
 
+    // If exchange indicated a recovery flow and no explicit valid destination was supplied,
+    // route directly to the password reset view.
+    const destination =
+      data?.redirectType === "recovery" && safeNext === "/"
+        ? "/reset-password"
+        : safeNext;
+
     // Successful exchange: redirect strictly to the sanitized internal path
-    return NextResponse.redirect(`${origin}${safeNext}`);
+    return NextResponse.redirect(`${origin}${destination}`);
   } catch {
     // Malformed request URL or unexpected error: return safe generic error redirect
     return NextResponse.redirect(`${origin}/?auth_error=callback_error`);
