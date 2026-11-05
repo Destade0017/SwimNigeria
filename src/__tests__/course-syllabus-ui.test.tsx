@@ -159,7 +159,7 @@ describe("Public Course Syllabus UI & Routing (Phase 4.3)", () => {
     render(pageJsx);
 
     // Lesson 1 is marked as isPreview: true
-    const previewBadges = screen.getAllByText("Preview Lesson (Reader Launching Phase 4.4)");
+    const previewBadges = screen.getAllByText("Preview Lesson");
     expect(previewBadges.length).toBeGreaterThan(0);
 
     // Other lessons are designated for full curriculum

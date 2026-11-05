@@ -207,26 +207,24 @@ describe("Course Catalogue UI & Filtering (Phase 4.2)", () => {
     );
   });
 
-  it("does not render clickable broken links to unbuilt syllabus detail routes", async () => {
+  it("links every course card to its live syllabus detail route", async () => {
     const pageJsx = await CoursesPage({ searchParams: Promise.resolve({}) });
     render(pageJsx);
 
-    // Verify buttons are non-interactive and disabled
-    const syllabusButtons = screen.getAllByRole("button", {
-      name: "Syllabus Viewer (Launching in Phase 4.3)",
+    // Syllabus routes are live: each published course card exposes an active View Syllabus link
+    const publishedCourses = getPublishedCourses();
+    const syllabusLinks = screen.getAllByRole("link", { name: "View Syllabus" });
+    expect(syllabusLinks).toHaveLength(publishedCourses.length);
+
+    publishedCourses.forEach((course, idx) => {
+      expect(syllabusLinks[idx]).toHaveAttribute("href", `/courses/${course.slug}`);
     });
-    expect(syllabusButtons).toHaveLength(3);
 
-    for (const btn of syllabusButtons) {
-      expect(btn).toBeDisabled();
-      expect(btn).toHaveAttribute("aria-disabled", "true");
-    }
-
-    // Verify upcoming release notice is present
-    const notices = screen.getAllByText(
-      /Full interactive syllabus exploration and preview lessons will open in the next milestone\./i,
-    );
-    expect(notices).toHaveLength(3);
+    // The stale disabled placeholder and upcoming-release notice are gone
+    expect(
+      screen.queryByRole("button", { name: /Syllabus Viewer \(Launching in Phase 4\.3\)/i }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/will open in the next milestone/i)).not.toBeInTheDocument();
   });
 
   it("truthful presentation: does not display fabricated ratings, reviews, or enrollment statistics", async () => {

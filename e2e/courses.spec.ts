@@ -46,14 +46,17 @@ test.describe("Public Course Catalogue Experience (Phase 4.2)", () => {
     // Verify draft courses are strictly excluded
     await expect(page.getByText("Open Water Safety & Coastal Survival Concepts")).not.toBeVisible();
 
-    // Verify syllabus buttons are non-interactive disabled buttons without broken links
-    const syllabusButtons = page.getByRole("button", {
-      name: "Syllabus Viewer (Launching in Phase 4.3)",
-    });
-    await expect(syllabusButtons).toHaveCount(3);
-    for (let i = 0; i < 3; i++) {
-      await expect(syllabusButtons.nth(i)).toBeDisabled();
-    }
+    // Verify each course card links to its live syllabus route
+    const syllabusLinks = page.getByRole("link", { name: "View Syllabus" });
+    await expect(syllabusLinks).toHaveCount(3);
+    await expect(syllabusLinks.first()).toHaveAttribute("href", /^\/courses\/[a-z0-9-]+$/);
+
+    // Clicking the first card's link reaches the syllabus page
+    await syllabusLinks.first().click();
+    await expect(page).toHaveURL(/\/courses\/[a-z0-9-]+$/);
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Water Safety & Overcoming Fear of Water" }),
+    ).toBeVisible();
   });
 
   test("filters courses by category and updates URL parameter", async ({ page }) => {
@@ -287,9 +290,10 @@ test.describe("Public Course Syllabus Experience (Phase 4.3)", () => {
       }),
     ).toBeVisible();
 
-    // Preview lesson badge (without broken link)
-    const previewBadge = page.getByText("Preview Lesson (Reader Launching Phase 4.4)");
+    // Preview lesson badge and working reader link
+    const previewBadge = page.getByText("Preview Lesson");
     await expect(previewBadge.first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /Read Lesson Preview/ }).first()).toBeVisible();
 
     // Draft module is strictly omitted
     await expect(

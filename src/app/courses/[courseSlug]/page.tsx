@@ -287,7 +287,7 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
                               {lesson.isPreview ? (
                                 <div className="flex flex-wrap items-center gap-2">
                                   <Badge variant="aquatic" size="sm">
-                                    Preview Lesson (Reader Launching Phase 4.4)
+                                    Preview Lesson
                                   </Badge>
                                   <Link
                                     href={`/courses/${course.slug}/lessons/${lesson.slug}`}
@@ -331,10 +331,10 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
                 Ready to Study This Course?
               </h2>
               <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
-                SwimNigeria is rolling out its curriculum incrementally. Public syllabus exploration
-                is currently live. Full interactive student enrollment, lesson progress tracking,
-                and certificate assessment will open in upcoming phases. In Phase 4.4, designated
-                preview lessons will become readable directly on the platform.
+                SwimNigeria is rolling out its curriculum incrementally. Public syllabus
+                exploration and designated preview lesson readers are live today. Full interactive
+                student enrollment, lesson progress tracking, and certificate assessment will open
+                in upcoming phases.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-4">
                 <ButtonLink href="/courses">Explore Other Courses</ButtonLink>

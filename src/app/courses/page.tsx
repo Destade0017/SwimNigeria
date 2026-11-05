@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
-import { Button, ButtonLink } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 import {
   Card,
   CardHeader,
@@ -324,28 +324,14 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
                     </div>
                   </CardContent>
 
-                  <CardFooter className="border-t border-neutral-100 pt-4 flex flex-col items-stretch gap-2.5">
-                    {/* Transparent Intended Route Indicator */}
-                    <div className="flex items-center justify-between text-[11px] text-neutral-500">
-                      <span>Intended syllabus route:</span>
-                      <code className="text-neutral-700 bg-neutral-100 px-1.5 py-0.5 rounded font-mono">
-                        /courses/{course.slug}
-                      </code>
-                    </div>
-
-                    {/* Honest Interim Non-Interactive Action */}
-                    <Button
-                      variant="secondary"
-                      disabled
-                      aria-disabled="true"
-                      className="w-full justify-center opacity-85 cursor-not-allowed text-xs font-semibold"
+                  <CardFooter className="border-t border-neutral-100 pt-4">
+                    <ButtonLink
+                      href={`/courses/${course.slug}`}
+                      size="sm"
+                      className="w-full justify-center"
                     >
-                      Syllabus Viewer (Launching in Phase 4.3)
-                    </Button>
-                    <p className="text-[11px] text-neutral-500 text-center leading-normal">
-                      Full interactive syllabus exploration and preview lessons will open in the
-                      next milestone.
-                    </p>
+                      View Syllabus
+                    </ButtonLink>
                   </CardFooter>
                 </Card>
               );
