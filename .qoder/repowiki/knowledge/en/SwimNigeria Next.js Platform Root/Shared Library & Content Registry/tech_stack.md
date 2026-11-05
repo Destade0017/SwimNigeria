@@ -1,0 +1,1 @@
+TypeScript library over Next.js App Router; Supabase Auth via `@supabase/ssr` (browser + server client factories); Zod for schema validation; Next.js `next/headers` cookie store for RSC-aware session handling.

@@ -1,0 +1,1 @@
+Top-level Next.js App Router entry that wires marketing, content, and auth pages under a shared layout and global stylesheet.

@@ -1,0 +1,5 @@
+- Component tests render JSX via `render` and assert behavior using `screen.getByRole` / `getByLabelText` selectors combined with `@testing-library/jest-dom` matchers like `toHaveClass`, `toBeDisabled`, `toHaveAttribute`.
+- Server route handler tests dynamically import the handler with `await import('@/app/...')` and drive it with `new Request(url)` instances, asserting on the returned `Response` status and headers.
+- External dependencies (`@supabase/ssr`, `next/headers`, `@/lib/supabase/server`) are stubbed at the top of each test file with `vi.mock` and `vi.fn()` spies rather than imported directly.
+- `process.env` is isolated per test by copying the original env in `beforeEach`, assigning a minimal set of `NEXT_PUBLIC_SUPABASE_*` / `NEXT_PUBLIC_APP_URL` variables, and restoring it in `afterEach`.
+- Tests group related scenarios with nested `describe` blocks mirroring the module's public API surface (e.g. 'Browser Client' vs 'Server Client', 'validateSupabasePublicEnv' sub-scenarios).

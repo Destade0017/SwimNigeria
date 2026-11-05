@@ -1,0 +1,23 @@
+schema_version: 1
+module_path: ""
+title: SwimNigeria Next.js Platform Root
+scope:
+    - README.md
+    - AGENTS.md
+    - .gitignore
+    - .prettierrc
+    - .prettierignore
+    - eslint.config.mjs
+    - next.config.ts
+    - postcss.config.mjs
+    - package.json
+    - package-lock.json
+    - tsconfig.json
+    - vitest.config.ts
+    - playwright.config.ts
+    - skills-lock.json
+    - .env.example
+    - next-env.d.ts
+source_files: []
+depends_on: []
+related_to: []

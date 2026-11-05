@@ -1,0 +1,1 @@
+`setup.ts` must be loaded by Vitest so that `toBeInTheDocument` matchers and the `HTMLDialogElement` polyfills are available before any test runs.

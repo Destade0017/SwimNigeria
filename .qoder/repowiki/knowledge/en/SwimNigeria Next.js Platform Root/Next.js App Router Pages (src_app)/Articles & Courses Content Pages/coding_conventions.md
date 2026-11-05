@@ -1,0 +1,6 @@
+- Route files are async Server Components whose props (`params`, `searchParams`) are declared as `Promise<...>` interfaces and awaited before use.
+- Each dynamic route exports both `generateStaticParams` (over published/preview items) and `generateMetadata` to drive build-time SSG and per-route SEO.
+- Missing or unpublished resources are surfaced to users via `next/navigation`'s `notFound()` rather than returning empty states.
+- List pages expose filters through URL search params (`?category=...`, `?difficulty=...`) and derive active-state styling by comparing normalized slugs.
+- Every article/course/lesson page renders a mandatory educational-and-life-safety disclaimer block before the main content.
+- All navigation between content pages uses Next.js `<Link>` with consistent focus-visible ring styles and `aria-current="page"` on the active filter.

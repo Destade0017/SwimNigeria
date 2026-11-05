@@ -1,0 +1,1 @@
+Authoritative design, architecture, requirements, and operational documentation for the SwimNigeria educational swimming platform built on Next.js and Supabase.

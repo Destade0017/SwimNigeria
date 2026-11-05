@@ -1,0 +1,11 @@
+schema_version: 1
+module_path: app_pages/auth_pages
+title: Learner Authentication & Account Registration Pages
+scope:
+    - src/app/auth/
+    - src/app/login/
+    - src/app/register/
+source_files: []
+depends_on: []
+related_to:
+    - path: e2e_tests

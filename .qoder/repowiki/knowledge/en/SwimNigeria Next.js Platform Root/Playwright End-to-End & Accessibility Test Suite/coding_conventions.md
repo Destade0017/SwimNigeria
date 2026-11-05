@@ -1,0 +1,6 @@
+- Each spec file groups its scenarios with a top-level `test.describe` named after the feature and route it covers (e.g., "Learner Login Page (/login)", "Public Course Catalogue Experience").
+- Page state is set up inline per test via `await page.goto(...)` rather than shared `beforeEach` hooks, except when multiple tests in a describe need the same starting URL (see `login.spec.ts`).
+- Assertions combine semantic role-based locators (`getByRole('heading', { level: 1 })`, `getByRole('link', { name })`) with explicit `toHaveTitle` checks against regexes matching the expected document title pattern.
+- Every feature includes a dedicated test that instantiates `AxeBuilder({ page }).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze()` and asserts `violations` equals an empty array.
+- Responsive/mobile validation is performed by calling `page.setViewportSize({ width: 375, height: 667 })` and then asserting key headings/inputs remain visible without horizontal overflow (comparing `scrollWidth` vs `clientWidth`).
+- Draft/unpublished content is verified as excluded both visually (`getByText(...).not.toBeVisible()`) and via HTTP status (`expect(response?.status()).toBe(404)`) for unknown or draft slugs.

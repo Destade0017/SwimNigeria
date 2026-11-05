@@ -1,0 +1,1 @@
+Next.js 16 + React 19 + TypeScript (ES2022 target, bundler module resolution), Tailwind CSS v4 via PostCSS, Supabase JS client with SSR helpers, Zod for schema validation, Vitest for unit/integration tests, Playwright + axe-core for E2E accessibility testing.

@@ -1,0 +1,1 @@
+Next.js App Router pages that render the public article catalog, individual articles, course syllabus listings, and preview lessons, driven by server-side data loaders from @/lib.

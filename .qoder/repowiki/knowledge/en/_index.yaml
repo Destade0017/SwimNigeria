@@ -1,0 +1,136 @@
+# 知识卡导出索引文件
+schema_version: 1
+locale: en-US
+branch: main
+nodes_managed: true
+exported_at: "2026-11-05T15:22:38Z"
+modules:
+    "":
+        dir_name: SwimNigeria Next.js Platform Root
+        title: SwimNigeria Next.js Platform Root
+        scope:
+            - README.md
+            - AGENTS.md
+            - .gitignore
+            - .prettierrc
+            - .prettierignore
+            - eslint.config.mjs
+            - next.config.ts
+            - postcss.config.mjs
+            - package.json
+            - package-lock.json
+            - tsconfig.json
+            - vitest.config.ts
+            - playwright.config.ts
+            - skills-lock.json
+            - .env.example
+            - next-env.d.ts
+        source_files: []
+        children:
+            - app_pages
+            - components
+            - docs
+            - e2e_tests
+            - lib
+            - unit_tests
+        depends_on: []
+        related_to: []
+    app_pages:
+        dir_name: Next.js App Router Pages (src_app)
+        title: Next.js App Router Pages (src/app)
+        scope:
+            - src/app/
+        source_files: []
+        children:
+            - app_pages/auth_pages
+            - app_pages/content_pages
+            - app_pages/marketing_pages
+        depends_on: []
+        related_to: []
+    app_pages/auth_pages:
+        dir_name: Learner Authentication & Account Registration Pages
+        title: Learner Authentication & Account Registration Pages
+        scope:
+            - src/app/auth/
+            - src/app/login/
+            - src/app/register/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to:
+            - path: e2e_tests
+    app_pages/content_pages:
+        dir_name: Articles & Courses Content Pages
+        title: Articles & Courses Content Pages
+        scope:
+            - src/app/articles/
+            - src/app/courses/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to:
+            - path: e2e_tests
+            - path: lib
+    app_pages/marketing_pages:
+        dir_name: Marketing & Public-Facing Pages (Home, About, Contact)
+        title: Marketing & Public-Facing Pages (Home, About, Contact)
+        scope:
+            - src/app/about/
+            - src/app/contact/
+            - src/app/page.tsx
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []
+    components:
+        dir_name: Shared UI, Layout & Auth Components
+        title: Shared UI, Layout & Auth Components
+        scope:
+            - src/components/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to:
+            - path: unit_tests
+    docs:
+        dir_name: SwimNigeria Project Documentation
+        title: SwimNigeria Project Documentation
+        scope:
+            - docs/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []
+    e2e_tests:
+        dir_name: Playwright End-to-End & Accessibility Test Suite
+        title: Playwright End-to-End & Accessibility Test Suite
+        scope:
+            - e2e/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to:
+            - path: app_pages/auth_pages
+            - path: app_pages/content_pages
+    lib:
+        dir_name: Shared Library & Content Registry
+        title: Shared Library & Content Registry
+        scope:
+            - src/lib/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to:
+            - path: app_pages/content_pages
+            - path: unit_tests
+    unit_tests:
+        dir_name: Vitest Unit & Integration Test Suite
+        title: Vitest Unit & Integration Test Suite
+        scope:
+            - src/__tests__/
+        source_files: []
+        children: []
+        depends_on: []
+        related_to:
+            - path: components
+            - path: lib

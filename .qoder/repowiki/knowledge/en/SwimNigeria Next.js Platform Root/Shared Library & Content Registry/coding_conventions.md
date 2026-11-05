@@ -1,0 +1,5 @@
+- Public API surfaces are exported as named functions or `as const` objects rather than classes, keeping the module stateless and tree-shakeable.
+- Content registries use a `published: boolean` flag at every nesting level (article, course, module, lesson) and expose filtered query helpers that never return unpublished items.
+- Zod schemas are paired with `z.infer<typeof X>` input types and a separate `*FieldErrors` record describing per-field error shapes for form integration.
+- Supabase configuration is always obtained through `getSupabasePublicEnv()` from `env.ts`, which validates placeholders and URL structure before returning credentials.
+- Security-sensitive redirect targets are validated through `sanitizeRedirectUrl`, rejecting protocol-relative URLs, backslashes, control characters, and any resolved origin outside the trusted application origin.

@@ -1,0 +1,10 @@
+schema_version: 1
+module_path: app_pages/marketing_pages
+title: Marketing & Public-Facing Pages (Home, About, Contact)
+scope:
+    - src/app/about/
+    - src/app/contact/
+    - src/app/page.tsx
+source_files: []
+depends_on: []
+related_to: []

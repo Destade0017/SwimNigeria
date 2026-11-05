@@ -1,0 +1,1 @@
+Top-level Next.js App Router project that composes pages, shared components, a Supabase-backed lib, and Vitest/Playwright test suites under a single TypeScript + Tailwind build.

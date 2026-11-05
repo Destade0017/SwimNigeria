@@ -1,0 +1,6 @@
+- Each route file declares an `export const metadata: Metadata` object at the top of the file to define page title and description for SEO.
+- Page content is organized into semantic `<section>` elements each carrying an `aria-labelledby` attribute whose value matches the `id` on the section's heading.
+- All page content is wrapped in the shared `<Container>` component from `@/components/layout/container` to enforce consistent max-width and padding.
+- Section headings use a consistent hierarchy: a `Badge` variant (`brand` or `aquatic`) above an `h1`/`h2` with responsive text sizing (`text-3xl sm:text-4xl lg:text-5xl`), followed by body copy styled with `text-neutral-700 leading-relaxed`.
+- Cards follow the CardHeader/CardTitle/CardDescription/CardContent composition pattern from `@/components/ui/card`, often pairing a colored icon circle with a Badge variant to label the card category.
+- Cross-page navigation uses Next.js `<Link>` components with secondary CTA styling (bordered, neutral background) and primary CTAs (filled `bg-brand-red-600`), consistently including `min-h-[44px]` and focus-visible ring styles.

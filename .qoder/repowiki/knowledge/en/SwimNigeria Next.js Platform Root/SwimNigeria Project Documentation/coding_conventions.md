@@ -1,0 +1,3 @@
+- Each document follows a consistent heading hierarchy (numbered sections with `##` and `###`) and uses Mermaid diagrams to illustrate data flows and architecture layers.
+- Major technology choices are recorded as explicit 'Evaluated Options' followed by an 'Architecture Decision' block, making trade-offs auditable in `TECHNOLOGY_EVALUATION.md` and `SYSTEM_ARCHITECTURE.md`.
+- Security posture is consistently expressed as multi-tier defense-in-depth (edge/middleware → application layer → database RLS) rather than relying on client-side trust.

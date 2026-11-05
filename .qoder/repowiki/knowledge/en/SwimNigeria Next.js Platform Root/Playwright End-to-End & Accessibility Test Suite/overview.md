@@ -1,0 +1,1 @@
+Playwright-based end-to-end tests validating SwimNigeria's public pages, learner auth flows, course/article navigation, and WCAG 2.1 AA accessibility compliance.

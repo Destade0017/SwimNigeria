@@ -1,0 +1,10 @@
+schema_version: 1
+module_path: e2e_tests
+title: Playwright End-to-End & Accessibility Test Suite
+scope:
+    - e2e/
+source_files: []
+depends_on: []
+related_to:
+    - path: app_pages/auth_pages
+    - path: app_pages/content_pages

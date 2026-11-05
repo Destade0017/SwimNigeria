@@ -1,0 +1,1 @@
+Tests assume a running application server serving at the root path (specs use relative URLs like `/`, `/login`, `/courses`); run via Playwright's standard `npx playwright test e2e/` command.

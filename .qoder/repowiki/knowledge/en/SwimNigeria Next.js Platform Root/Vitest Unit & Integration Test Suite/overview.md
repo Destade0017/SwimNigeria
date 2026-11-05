@@ -1,0 +1,1 @@
+Vitest-based test suite covering React UI primitives, Next.js route handlers, Supabase client configuration, and authentication flows for the SwimNigeria application.

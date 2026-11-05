@@ -1,0 +1,1 @@
+Next.js App Router with Server Components, Tailwind CSS utility classes, and the project's internal shadcn-style component library (`@/components/ui/*`).

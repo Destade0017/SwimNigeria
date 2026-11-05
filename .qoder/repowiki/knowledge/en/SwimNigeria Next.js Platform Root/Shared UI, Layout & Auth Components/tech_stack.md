@@ -1,0 +1,1 @@
+React Server Components with explicit `'use client'` boundaries; Tailwind CSS utility classes merged through a custom `cn` helper from `@/lib/utils`; Next.js `Link` for navigation and `useTransition` for optimistic pending states.

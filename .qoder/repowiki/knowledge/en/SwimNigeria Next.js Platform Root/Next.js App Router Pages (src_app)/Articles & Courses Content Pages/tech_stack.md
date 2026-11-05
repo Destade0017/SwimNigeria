@@ -1,0 +1,1 @@
+Next.js App Router Server Components with React Server Components patterns (`params`/`searchParams` typed as `Promise<...>`), static pre-rendering via `generateStaticParams`, and Tailwind CSS for styling.

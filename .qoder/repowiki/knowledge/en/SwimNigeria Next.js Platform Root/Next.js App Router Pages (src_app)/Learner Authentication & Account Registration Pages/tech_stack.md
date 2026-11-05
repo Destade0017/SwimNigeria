@@ -1,0 +1,1 @@
+Next.js App Router (Route Handlers + Server Actions), React 19 `useActionState` for form state, Supabase Auth (`signInWithPassword`, `signUp`, `exchangeCodeForSession`, `signOut`) accessed exclusively through the anon public key via `@/lib/supabase/server`, Zod schemas in `@/lib/validation/auth`, and `@supabase/ssr` for cookie handling.

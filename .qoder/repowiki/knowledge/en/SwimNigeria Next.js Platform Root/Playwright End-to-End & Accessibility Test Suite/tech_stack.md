@@ -1,0 +1,1 @@
+Playwright (`@playwright/test`) with Axe Builder (`@axe-core/playwright`) scanning WCAG 2.0 A/AA and WCAG 2.1 A/AA tags in every feature test.

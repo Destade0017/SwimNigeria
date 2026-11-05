@@ -1,0 +1,1 @@
+Vitest + @testing-library/react + @testing-library/jest-dom running in a jsdom environment; Supabase integration is exercised through mocked `@supabase/ssr` rather than real clients.

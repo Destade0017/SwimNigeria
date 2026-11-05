@@ -1,0 +1,1 @@
+Next.js App Router marketing pages that present SwimNigeria's mission, structured curriculum roadmap, water safety principles, and pre-launch contact directory to the public.

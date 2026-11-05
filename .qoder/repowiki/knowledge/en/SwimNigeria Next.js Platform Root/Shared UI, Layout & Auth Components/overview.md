@@ -1,0 +1,1 @@
+Reusable React component library providing atomic UI primitives, page-level layout shell (header/footer/container), and a client-side logout button for the SwimNigeria Next.js app.

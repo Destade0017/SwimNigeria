@@ -1,0 +1,5 @@
+- Primitives are exported as `forwardRef` function components with an explicit `displayName` set to the component name.
+- Variant- and size-driven styling is implemented via typed string union props (`ButtonVariant`, `ButtonSize`, `CardVariant`) mapped to style lookup objects, then composed through `cn`.
+- Class names are always composed via `cn(base, variantStyles, className)` so callers can override or extend styles.
+- Client-side interactivity is gated by a leading `'use client'` directive, and async mutations use `React.useTransition` with `isLoading`/`loadingText` on Button.
+- Accessibility attributes (`aria-*`, `role`, `id`) are added inline alongside focus-visible ring utilities for keyboard navigation.

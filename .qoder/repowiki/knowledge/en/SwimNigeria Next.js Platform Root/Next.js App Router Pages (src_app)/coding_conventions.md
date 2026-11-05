@@ -1,0 +1,3 @@
+- Each route segment exposes its UI through a `page.tsx` colocated with any server actions or sub-components.
+- Dynamic URL parameters are expressed via Next.js bracketed folders (`[slug]`, `[courseSlug]`, `[lessonSlug]`) matching the data model keys used by `@/lib` loaders.
+- Server-side data fetching is done inside the page components themselves using async functions, keeping loaders co-located with their route.

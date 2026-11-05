@@ -1,0 +1,6 @@
+- Each feature page pairs a route handler (`page.tsx`) with a `*form.tsx` client component and an `actions.ts` file containing both a reusable core function and a thin `*Action` wrapper over `FormData`.
+- Server-side input validation goes through Zod schemas from `@/lib/validation/auth` before any Supabase call, with flattened field errors mapped into a typed `*FieldErrors` shape returned to the client.
+- All redirect targets are passed through `sanitizeRedirectUrl(candidateNext, origin, defaultPath)` using the trusted origin from `getTrustedAppOrigin()` before being used in `NextResponse.redirect` or `redirect`.
+- Authentication operations use only the anon public key via `createClient()` — no Service-Role key usage — and wrap Supabase calls in try/catch blocks that log diagnostics without leaking secrets.
+- User-facing error responses never expose raw Supabase codes or stack traces; instead they return generic messages like "Invalid email or password" or "Too many login attempts" while logging the underlying status server-side.
+- Client forms use `useActionState` with an exported `INITIAL_*_STATE` constant, pass `next` as a hidden `<input>` field, and navigate on success via `router.push` + `router.refresh`.

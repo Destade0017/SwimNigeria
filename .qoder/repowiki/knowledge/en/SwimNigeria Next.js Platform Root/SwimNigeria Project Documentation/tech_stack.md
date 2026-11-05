@@ -1,0 +1,1 @@
+Documentation describes a Next.js (App Router, React Server Components) frontend hosted on Vercel or Cloudflare Pages, backed by Supabase (PostgreSQL + Auth via PKCE + Storage), with unlisted YouTube embeds for video and Resend for transactional email — all selected to stay within free tiers.

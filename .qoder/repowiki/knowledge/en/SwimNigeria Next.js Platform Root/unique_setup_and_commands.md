@@ -1,0 +1,1 @@
+Standard npm scripts at the root: `npm run dev` / `build` / `start` for the Next app, `npm run lint` (ESLint), `npm run typecheck` (tsc --noEmit), `npm run test` / `test:watch` (Vitest), `npm run test:e2e` (Playwright), and `format:check` / `format:write` (Prettier).

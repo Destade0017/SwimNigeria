@@ -1,0 +1,1 @@
+Cross-cutting shared library for SwimNigeria: Supabase client factories, auth validation schemas, app constants, and in-memory article/course content registries.

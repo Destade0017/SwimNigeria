@@ -1,0 +1,1 @@
+Next.js App Router with TypeScript `.tsx` pages; Supabase client provided via the root layout; server actions in `login/actions.ts` and `register/actions.ts` handle form mutations.

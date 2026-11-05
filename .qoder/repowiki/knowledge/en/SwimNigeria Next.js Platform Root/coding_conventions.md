@@ -1,0 +1,3 @@
+- Source files import from the `@/*` path alias mapped to `./src/*` rather than relative paths across all modules.
+- TypeScript is configured with `strict: true`, `strictNullChecks`, and `isolatedModules`, enforced by the root `tsconfig.json` consumed by both Next.js and Vitest.
+- React components are written as TypeScript files using the `react-jsx` transform and co-located with their stylesheets processed through Tailwind.

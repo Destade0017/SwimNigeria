@@ -1,0 +1,11 @@
+schema_version: 1
+module_path: app_pages/content_pages
+title: Articles & Courses Content Pages
+scope:
+    - src/app/articles/
+    - src/app/courses/
+source_files: []
+depends_on: []
+related_to:
+    - path: e2e_tests
+    - path: lib

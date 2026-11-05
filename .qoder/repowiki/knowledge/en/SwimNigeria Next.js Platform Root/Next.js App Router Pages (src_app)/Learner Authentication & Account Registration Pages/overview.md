@@ -1,0 +1,1 @@
+Next.js App Router pages and server actions for learner sign-in, account registration, and the Supabase PKCE authorization-code callback that finalizes email verification.

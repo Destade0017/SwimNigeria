@@ -1,0 +1,8 @@
+schema_version: 1
+module_path: app_pages
+title: Next.js App Router Pages (src/app)
+scope:
+    - src/app/
+source_files: []
+depends_on: []
+related_to: []
