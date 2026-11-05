@@ -67,9 +67,7 @@ export function ResetPasswordForm() {
               </svg>
               <span className="font-semibold text-water-blue-900">Password Successfully Reset</span>
             </div>
-            <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
-              {state.message}
-            </p>
+            <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">{state.message}</p>
             <div className="pt-2">
               <Link href="/login" className="w-full inline-block">
                 <Button variant="primary" size="md" className="w-full">

@@ -47,10 +47,9 @@ export async function GET(request: Request) {
 
     // If exchange indicated a recovery flow and no explicit valid destination was supplied,
     // route directly to the password reset view.
+    const redirectType = (data as { redirectType?: string } | null)?.redirectType;
     const destination =
-      data?.redirectType === "recovery" && safeNext === "/"
-        ? "/reset-password"
-        : safeNext;
+      redirectType === "recovery" && safeNext === "/" ? "/reset-password" : safeNext;
 
     // Successful exchange: redirect strictly to the sanitized internal path
     return NextResponse.redirect(`${origin}${destination}`);

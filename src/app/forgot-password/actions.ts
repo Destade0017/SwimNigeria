@@ -313,7 +313,8 @@ export async function resetPassword(
     // 4. Return success
     return {
       success: true,
-      message: "Your password has been successfully reset. You can now log in with your new password.",
+      message:
+        "Your password has been successfully reset. You can now log in with your new password.",
     };
   } catch (err) {
     console.error(

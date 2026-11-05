@@ -22,8 +22,8 @@ export default function ForgotPasswordPage() {
             Forgot Your Password?
           </h1>
           <p className="text-base text-neutral-600 max-w-lg mx-auto">
-            Provide your email address and we&apos;ll send you a secure verification link to reset your
-            password and resume your aquatic safety learning.
+            Provide your email address and we&apos;ll send you a secure verification link to reset
+            your password and resume your aquatic safety learning.
           </p>
         </div>
 

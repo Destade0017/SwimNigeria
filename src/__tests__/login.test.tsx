@@ -246,6 +246,7 @@ describe("Learner Login & Session Management (Phase 5.3)", () => {
       expect(screen.getByLabelText(/^password/i)).toBeInTheDocument();
       expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /register as a learner/i })).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: /reset password/i })).toBeInTheDocument();
     });
 
     it("toggles password visibility with accessible button and attributes", () => {

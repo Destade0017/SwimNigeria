@@ -102,6 +102,23 @@ describe("PKCE Auth Callback Handler (/auth/callback/route.ts)", () => {
     expect(res.headers.get("location")).toBe("https://swimnigeria.org/reset-password");
   });
 
+  it("redirects to safe error fallback without leaking details when exchangeCodeForSession fails", async () => {
+    const { GET } = await import("@/app/auth/callback/route");
+    mockExchangeCodeForSession.mockResolvedValue({
+      error: { message: "Invalid or expired authorization code", status: 400 },
+    });
+
+    const req = new Request("https://swimnigeria.org/auth/callback?code=expired-code-999");
+
+    const res = await GET(req);
+    expect(res.status).toBe(307);
+    const location = res.headers.get("location");
+    expect(location).toBe("https://swimnigeria.org/?auth_error=exchange_failed");
+    // Ensure no secret or error details leak into the URL
+    expect(location).not.toContain("expired-code-999");
+    expect(location).not.toContain("Invalid");
+  });
+
   it("handles unexpected runtime exceptions safely", async () => {
     const { GET } = await import("@/app/auth/callback/route");
     mockExchangeCodeForSession.mockRejectedValue(new Error("Network connection dropped"));
