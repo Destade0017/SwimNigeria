@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
 import {
   getCourseBySlug,
   getPublishedCourses,
@@ -79,9 +80,9 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
             <Badge variant="outline" size="md">
               {difficultyLabel}
             </Badge>
-            <span className="font-medium text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 text-xs">
+            <Badge variant="success" size="md">
               Free Digital Access
-            </span>
+            </Badge>
           </div>
 
           <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl leading-tight">
@@ -112,12 +113,20 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
         {/* Mandatory Educational & Life-Safety Disclaimer */}
         <div className="mt-8 rounded-xl border border-brand-red-200 bg-brand-red-50/70 p-5 sm:p-6 text-brand-red-950 text-sm leading-relaxed max-w-4xl">
           <div className="flex items-start gap-3">
-            <span
-              className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-red-600 text-neutral-white font-bold text-xs"
+            <svg
+              className="mt-0.5 h-5 w-5 shrink-0 text-brand-red-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
               aria-hidden="true"
             >
-              !
-            </span>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.133 3.377c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+              />
+            </svg>
             <div className="space-y-1">
               <strong className="font-semibold block text-brand-red-900">
                 Mandatory Educational &amp; Life-Safety Disclaimer
@@ -199,12 +208,16 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
                   key={idx}
                   className="flex items-start gap-3 rounded-lg border border-neutral-200 bg-neutral-white p-4 text-sm text-neutral-800 shadow-2xs"
                 >
-                  <span
-                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-water-blue-100 text-water-blue-700 font-bold text-xs mt-0.5"
+                  <svg
+                    className="mt-0.5 h-5 w-5 shrink-0 text-feedback-success"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
                     aria-hidden="true"
                   >
-                    ✓
-                  </span>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
                   <span>{outcome}</span>
                 </li>
               ))}
@@ -324,18 +337,10 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
                 preview lessons will become readable directly on the platform.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-4">
-                <Link
-                  href="/courses"
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-brand-red-600 px-5 py-2.5 text-sm font-semibold text-neutral-white shadow-xs hover:bg-brand-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600"
-                >
-                  Explore Other Courses
-                </Link>
-                <Link
-                  href="/articles"
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-5 py-2.5 text-sm font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
-                >
+                <ButtonLink href="/courses">Explore Other Courses</ButtonLink>
+                <ButtonLink href="/articles" variant="outline">
                   Read Water Safety Articles
-                </Link>
+                </ButtonLink>
               </div>
             </div>
           </div>

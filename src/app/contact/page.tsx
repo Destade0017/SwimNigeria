@@ -1,8 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export default function ContactPage() {
           <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 lg:p-10 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="flex h-3 w-3 rounded-full bg-water-blue-600 animate-pulse" />
+                <span className="flex h-3 w-3 rounded-full bg-water-blue-600 animate-pulse motion-reduce:animate-none" />
                 <h2 id="status-heading" className="text-lg font-bold text-neutral-900">
                   Pre-Launch Communications Notice
                 </h2>
@@ -260,18 +260,12 @@ export default function ContactPage() {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
-            <Link
-              href="/articles"
-              className="inline-flex min-h-[44px] w-full sm:w-auto items-center justify-center rounded-lg bg-brand-red-600 px-6 py-2.5 text-sm font-semibold text-neutral-white shadow-xs hover:bg-brand-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 focus-visible:ring-offset-2"
-            >
+            <ButtonLink href="/articles" className="w-full sm:w-auto">
               Browse Educational Articles Directory
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex min-h-[44px] w-full sm:w-auto items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-6 py-2.5 text-sm font-semibold text-neutral-900 shadow-xs hover:bg-neutral-50 hover:border-neutral-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-            >
+            </ButtonLink>
+            <ButtonLink href="/about" variant="outline" className="w-full sm:w-auto">
               Read About Our Mission
-            </Link>
+            </ButtonLink>
           </div>
         </Container>
       </section>

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
 import {
   Card,
   CardHeader,
@@ -54,18 +55,12 @@ export default function HomePage() {
 
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                href="#courses"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-brand-red-600 px-6 py-3 text-base font-semibold text-neutral-white shadow-xs transition-colors hover:bg-brand-red-700 active:bg-brand-red-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 focus-visible:ring-offset-2"
-              >
+              <ButtonLink href="#courses" size="lg">
                 Explore Learning Pathway
-              </Link>
-              <Link
-                href="#safety"
-                className="inline-flex min-h-[48px] items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-6 py-3 text-base font-semibold text-neutral-900 transition-colors hover:bg-neutral-50 hover:border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 focus-visible:ring-offset-2"
-              >
+              </ButtonLink>
+              <ButtonLink href="#safety" variant="outline" size="lg">
                 Water Safety Principles
-              </Link>
+              </ButtonLink>
             </div>
 
             {/* Truthful Educational Highlights */}
@@ -119,15 +114,16 @@ export default function HomePage() {
                 learners to approach practical water sessions safely.
               </p>
             </div>
-            <Link
+            <ButtonLink
               href="/about"
-              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-5 py-2.5 text-sm font-semibold text-neutral-900 shadow-xs hover:bg-neutral-50 hover:border-neutral-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 shrink-0"
+              variant="outline"
+              className="shrink-0 self-start sm:self-end"
             >
               About Our Mission{" "}
               <span aria-hidden="true" className="ml-1.5">
                 →
               </span>
-            </Link>
+            </ButtonLink>
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -392,7 +388,7 @@ export default function HomePage() {
             </Card>
           </div>
 
-          <div className="mt-8 rounded-lg border border-neutral-200 bg-neutral-white p-4 text-xs text-neutral-600 text-center sm:text-left">
+          <div className="mt-8 rounded-lg border border-neutral-200 bg-neutral-white p-4 text-sm text-neutral-600 text-center sm:text-left">
             <span className="font-semibold text-neutral-900">Curriculum Note: </span>
             The pathway above outlines SwimNigeria&apos;s planned beginner curriculum. Lesson
             enrollment, interactive quizzes, and verifiable certificates will activate sequentially
@@ -425,53 +421,42 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 flex flex-col justify-between">
-              <div>
-                <span className="text-2xl font-extrabold text-brand-red-600">01</span>
-                <h3 className="mt-2 text-base font-bold text-neutral-900">
-                  Drowning is Often Silent
-                </h3>
-                <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
-                  Real drowning does not resemble theatrical flailing or shouting. Victims typically
-                  struggle quietly at the surface without the breath needed to call for help.
-                </p>
-              </div>
+            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6">
+              <span className="text-2xl font-extrabold text-brand-red-600">01</span>
+              <h3 className="mt-2 text-base font-bold text-neutral-900">Drowning is Often Silent</h3>
+              <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
+                Real drowning does not resemble theatrical flailing or shouting. Victims typically
+                struggle quietly at the surface without the breath needed to call for help.
+              </p>
             </div>
 
-            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 flex flex-col justify-between">
-              <div>
-                <span className="text-2xl font-extrabold text-brand-red-600">02</span>
-                <h3 className="mt-2 text-base font-bold text-neutral-900">Never Swim Alone</h3>
-                <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
-                  Always ensure competent supervision or a swimming companion is present. Sudden
-                  cramps, exhaustion, or panic can incapacitate even seasoned swimmers.
-                </p>
-              </div>
+            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6">
+              <span className="text-2xl font-extrabold text-brand-red-600">02</span>
+              <h3 className="mt-2 text-base font-bold text-neutral-900">Never Swim Alone</h3>
+              <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
+                Always ensure competent supervision or a swimming companion is present. Sudden
+                cramps, exhaustion, or panic can incapacitate even seasoned swimmers.
+              </p>
             </div>
 
-            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 flex flex-col justify-between">
-              <div>
-                <span className="text-2xl font-extrabold text-brand-red-600">03</span>
-                <h3 className="mt-2 text-base font-bold text-neutral-900">
-                  Reach or Throw, Don&apos;t Go
-                </h3>
-                <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
-                  Untrained rescuers frequently drown attempting in-water rescues. Use poles,
-                  branches, life buoys, or ropes from safety on the bank or pool edge.
-                </p>
-              </div>
+            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6">
+              <span className="text-2xl font-extrabold text-brand-red-600">03</span>
+              <h3 className="mt-2 text-base font-bold text-neutral-900">
+                Reach or Throw, Don&apos;t Go
+              </h3>
+              <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
+                Untrained rescuers frequently drown attempting in-water rescues. Use poles,
+                branches, life buoys, or ropes from safety on the bank or pool edge.
+              </p>
             </div>
 
-            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 flex flex-col justify-between">
-              <div>
-                <span className="text-2xl font-extrabold text-brand-red-600">04</span>
-                <h3 className="mt-2 text-base font-bold text-neutral-900">Float to Live</h3>
-                <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
-                  If caught unexpectedly in deep water or currents, fight the panic instinct. Tilt
-                  your head back, spread your limbs, float on your back, and regulate your
-                  breathing.
-                </p>
-              </div>
+            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6">
+              <span className="text-2xl font-extrabold text-brand-red-600">04</span>
+              <h3 className="mt-2 text-base font-bold text-neutral-900">Float to Live</h3>
+              <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
+                If caught unexpectedly in deep water or currents, fight the panic instinct. Tilt your
+                head back, spread your limbs, float on your back, and regulate your breathing.
+              </p>
             </div>
           </div>
 
@@ -510,15 +495,16 @@ export default function HomePage() {
                 buoyancy physics, and community safety checklists.
               </p>
             </div>
-            <Link
+            <ButtonLink
               href="/articles"
-              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-5 py-2.5 text-sm font-semibold text-neutral-900 shadow-xs hover:bg-neutral-50 hover:border-neutral-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 shrink-0"
+              variant="outline"
+              className="shrink-0 self-start sm:self-end"
             >
               Browse All Guides{" "}
               <span aria-hidden="true" className="ml-1.5">
                 →
               </span>
-            </Link>
+            </ButtonLink>
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -590,15 +576,16 @@ export default function HomePage() {
                 educators, community organizers, and learners committed to aquatic safety.
               </p>
             </div>
-            <Link
+            <ButtonLink
               href="/contact"
-              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-5 py-2.5 text-sm font-semibold text-neutral-900 shadow-xs hover:bg-neutral-50 hover:border-neutral-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 shrink-0"
+              variant="outline"
+              className="shrink-0 self-start sm:self-end"
             >
               Contact Directory{" "}
               <span aria-hidden="true" className="ml-1.5">
                 →
               </span>
-            </Link>
+            </ButtonLink>
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

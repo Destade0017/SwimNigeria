@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
 import {
   getPreviewLesson,
   getAdjacentPreviewLessons,
@@ -100,9 +101,9 @@ export default async function PreviewLessonPage({ params }: PreviewLessonPagePro
             <Badge variant="aquatic" size="md">
               Public Preview Lesson
             </Badge>
-            <span className="font-medium text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 text-xs">
+            <Badge variant="success" size="md">
               Free Access
-            </span>
+            </Badge>
             <span className="text-xs text-neutral-600 font-medium">
               ~{lesson.durationMinutes} min reading
             </span>
@@ -136,12 +137,20 @@ export default async function PreviewLessonPage({ params }: PreviewLessonPagePro
         {/* Mandatory Educational & Life-Safety Disclaimer */}
         <div className="mt-8 rounded-xl border border-brand-red-200 bg-brand-red-50/70 p-5 sm:p-6 text-brand-red-950 text-sm leading-relaxed">
           <div className="flex items-start gap-3">
-            <span
-              className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-red-600 text-neutral-white font-bold text-xs"
+            <svg
+              className="mt-0.5 h-5 w-5 shrink-0 text-brand-red-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
               aria-hidden="true"
             >
-              !
-            </span>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.133 3.377c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+              />
+            </svg>
             <div className="space-y-1">
               <strong className="font-semibold block text-brand-red-900">
                 Mandatory Educational &amp; Life-Safety Disclaimer
@@ -218,22 +227,40 @@ export default async function PreviewLessonPage({ params }: PreviewLessonPagePro
                   }`}
                 >
                   <div className="flex items-start gap-3">
-                    <span
-                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full font-bold text-xs ${
+                    <svg
+                      className={`mt-0.5 h-5 w-5 shrink-0 ${
                         section.callout.type === "safety"
-                          ? "bg-brand-red-600 text-neutral-white"
+                          ? "text-brand-red-700"
                           : section.callout.type === "technique"
-                            ? "bg-water-blue-600 text-neutral-white"
-                            : "bg-neutral-700 text-neutral-white"
+                            ? "text-water-blue-700"
+                            : "text-neutral-700"
                       }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
                       aria-hidden="true"
                     >
-                      {section.callout.type === "safety"
-                        ? "!"
-                        : section.callout.type === "technique"
-                          ? "✦"
-                          : "i"}
-                    </span>
+                      {section.callout.type === "safety" ? (
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.133 3.377c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                        />
+                      ) : section.callout.type === "technique" ? (
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 3l2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3z"
+                        />
+                      ) : (
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                        />
+                      )}
+                    </svg>
                     <div className="space-y-1">
                       <div className="flex flex-wrap items-center gap-2">
                         <span
@@ -310,12 +337,9 @@ export default async function PreviewLessonPage({ params }: PreviewLessonPagePro
           </div>
 
           <div className="text-center pt-2">
-            <Link
-              href={`/courses/${course.slug}`}
-              className="inline-flex min-h-[44px] items-center justify-center text-sm font-semibold text-neutral-700 hover:text-neutral-900 underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 rounded"
-            >
+            <ButtonLink href={`/courses/${course.slug}`} variant="ghost">
               Return to Course Syllabus ({course.title})
-            </Link>
+            </ButtonLink>
           </div>
         </nav>
 
@@ -333,18 +357,10 @@ export default async function PreviewLessonPage({ params }: PreviewLessonPagePro
             knowledge assessments.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-4">
-            <Link
-              href={`/courses/${course.slug}`}
-              className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-brand-red-600 px-5 py-2.5 text-sm font-semibold text-neutral-white shadow-xs hover:bg-brand-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600"
-            >
-              Explore Course Syllabus
-            </Link>
-            <Link
-              href="/courses"
-              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-5 py-2.5 text-sm font-semibold text-neutral-800 hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
-            >
+            <ButtonLink href={`/courses/${course.slug}`}>Explore Course Syllabus</ButtonLink>
+            <ButtonLink href="/courses" variant="outline">
               Browse All Courses
-            </Link>
+            </ButtonLink>
           </div>
         </div>
       </Container>

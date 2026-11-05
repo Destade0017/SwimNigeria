@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
 import {
   Card,
   CardHeader,
@@ -143,18 +144,13 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
               published guides below.
             </p>
             <div className="mt-6">
-              <Link
-                href="/articles"
-                className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-brand-red-600 px-5 py-2.5 text-sm font-semibold text-neutral-white shadow-xs hover:bg-brand-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600"
-              >
-                View All Published Guides
-              </Link>
+              <ButtonLink href="/articles">View All Published Guides</ButtonLink>
             </div>
           </div>
         )}
 
         {/* Responsible Educational Notice */}
-        <div className="mt-16 rounded-xl border border-neutral-200 bg-neutral-white p-5 text-xs text-neutral-600 leading-relaxed shadow-xs">
+        <div className="mt-16 rounded-xl border border-neutral-200 bg-neutral-white p-5 text-sm text-neutral-600 leading-relaxed shadow-xs">
           <span className="font-semibold text-neutral-900">Educational Scope: </span>
           The educational guides provided on SwimNigeria deliver theoretical comprehension, safety
           protocols, and technique fundamentals. They are designed to supplement, but never replace,

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 
 describe("Button Primitive Component", () => {
   it("renders with default type='button' and primary variant", () => {
@@ -83,5 +83,53 @@ describe("Button Primitive Component", () => {
 
     fireEvent.click(button);
     expect(handleClick).not.toHaveBeenCalled();
+  });
+});
+
+describe("ButtonLink Primitive Component", () => {
+  it("renders navigation with button styling instead of a native button", () => {
+    render(<ButtonLink href="/courses">Explore Courses</ButtonLink>);
+    const link = screen.getByRole("link", { name: /explore courses/i });
+
+    expect(link).toHaveAttribute("href", "/courses");
+    expect(link).toHaveClass("bg-brand-red-600", "min-h-[44px]");
+  });
+
+  it("applies the requested variant and size styles", () => {
+    const { rerender } = render(
+      <ButtonLink href="/courses" variant="outline">
+        Outline Link
+      </ButtonLink>,
+    );
+    expect(screen.getByRole("link")).toHaveClass("border-neutral-200", "text-neutral-900");
+
+    rerender(
+      <ButtonLink href="/courses" size="lg">
+        Large Link
+      </ButtonLink>,
+    );
+    expect(screen.getByRole("link")).toHaveClass("min-h-[48px]", "text-base");
+  });
+
+  it("merges custom className without wiping base variant styles", () => {
+    render(
+      <ButtonLink href="/about" className="w-full sm:w-auto">
+        Custom Link
+      </ButtonLink>,
+    );
+    const link = screen.getByRole("link", { name: /custom link/i });
+
+    expect(link).toHaveClass("w-full", "sm:w-auto", "bg-brand-red-600");
+  });
+
+  it("keeps keyboard focus and reduced-motion behaviour consistent with Button", () => {
+    render(<ButtonLink href="/articles">Articles</ButtonLink>);
+    const link = screen.getByRole("link", { name: /articles/i });
+
+    expect(link).toHaveClass(
+      "focus-visible:ring-2",
+      "focus-visible:ring-brand-red-600",
+      "motion-reduce:transition-none",
+    );
   });
 });

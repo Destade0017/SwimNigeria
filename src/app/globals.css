@@ -4,9 +4,12 @@
   /* Brand Red */
   --color-brand-red-50: #fef2f2;
   --color-brand-red-100: #fee2e2;
+  --color-brand-red-200: #fecaca;
   --color-brand-red-600: #dc2626;
   --color-brand-red-700: #b91c1c;
   --color-brand-red-800: #991b1b;
+  --color-brand-red-900: #7f1d1d;
+  --color-brand-red-950: #450a0a;
 
   /* Deep Neutrals */
   --color-neutral-white: #ffffff;
@@ -14,6 +17,8 @@
   --color-neutral-100: #f1f5f9;
   --color-neutral-200: #e2e8f0;
   --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
   --color-neutral-600: #475569;
   --color-neutral-700: #334155;
   --color-neutral-800: #1e293b;
@@ -22,8 +27,12 @@
   /* Aquatic Secondary Context */
   --color-water-blue-50: #f0f9ff;
   --color-water-blue-100: #e0f2fe;
+  --color-water-blue-200: #bae6fd;
   --color-water-blue-600: #0284c7;
   --color-water-blue-700: #0369a1;
+  --color-water-blue-800: #075985;
+  --color-water-blue-900: #0c4a6e;
+  --color-water-blue-950: #082f49;
 
   /* Semantic Feedback */
   --color-feedback-success: #059669;

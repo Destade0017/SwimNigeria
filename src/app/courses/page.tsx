@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 import {
   Card,
   CardHeader,
@@ -96,14 +96,22 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
           </p>
 
           {/* Educational Safety & Theory Notice */}
-          <div className="mt-6 rounded-xl border border-water-blue-200 bg-water-blue-50/70 p-4 sm:p-5 text-water-blue-900 text-sm leading-relaxed">
+          <div className="mt-6 rounded-xl border border-water-blue-200 bg-water-blue-50/70 p-4 sm:p-5 text-water-blue-950 text-sm leading-relaxed">
             <div className="flex items-start gap-3">
-              <span
-                className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-water-blue-600 text-neutral-white font-bold text-xs"
+              <svg
+                className="mt-0.5 h-5 w-5 shrink-0 text-water-blue-700"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
                 aria-hidden="true"
               >
-                i
-              </span>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.852l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                />
+              </svg>
               <div>
                 <strong className="font-semibold block sm:inline">
                   Educational Theory Notice:{" "}
@@ -186,7 +194,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
                 href={createFilterUrl(undefined, "all")}
                 className={`min-h-[44px] inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 ${
                   activeDifficulty === "all"
-                    ? "bg-neutral-900 text-neutral-white shadow-xs"
+                    ? "bg-brand-red-600 text-neutral-white shadow-xs"
                     : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 hover:text-neutral-900"
                 }`}
                 aria-current={activeDifficulty === "all" ? "page" : undefined}
@@ -204,7 +212,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
                     href={createFilterUrl(undefined, diff.toLowerCase())}
                     className={`min-h-[44px] inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 ${
                       isActive
-                        ? "bg-neutral-900 text-neutral-white shadow-xs"
+                        ? "bg-brand-red-600 text-neutral-white shadow-xs"
                         : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 hover:text-neutral-900"
                     }`}
                     aria-current={isActive ? "page" : undefined}
@@ -310,9 +318,9 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
                     {/* Module Count & Free Tag */}
                     <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs text-neutral-600">
                       <span>{course.modules.length} Pedagogical Modules</span>
-                      <span className="font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      <Badge variant="success" size="sm">
                         Free Digital Access
-                      </span>
+                      </Badge>
                     </div>
                   </CardContent>
 
@@ -351,12 +359,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
               criteria. Try resetting or adjusting your filters.
             </p>
             <div className="mt-6">
-              <Link
-                href="/courses"
-                className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-brand-red-600 px-5 py-2.5 text-sm font-semibold text-neutral-white shadow-xs hover:bg-brand-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600"
-              >
-                Reset All Filters
-              </Link>
+              <ButtonLink href="/courses">Reset All Filters</ButtonLink>
             </div>
           </div>
         )}

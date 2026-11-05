@@ -1,8 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
@@ -10,6 +10,40 @@ export const metadata: Metadata = {
   description:
     "Learn why SwimNigeria exists, our structured theoretical curriculum, and our commitment to accessible water safety and drowning prevention across Nigeria.",
 };
+
+function ProvidesIcon() {
+  return (
+    <svg
+      className="mt-0.5 h-4 w-4 shrink-0 text-feedback-success"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      aria-hidden="true"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+    </svg>
+  );
+}
+
+function RequiresIcon() {
+  return (
+    <svg
+      className="mt-0.5 h-4 w-4 shrink-0 text-feedback-warning"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 9v3.75m0 3.75h.008v.008H12v-.008zM21.75 12a9.75 9.75 0 11-19.5 0 9.75 9.75 0 0119.5 0z"
+      />
+    </svg>
+  );
+}
 
 export default function AboutPage() {
   return (
@@ -218,19 +252,19 @@ export default function AboutPage() {
                 </h3>
                 <ul className="mt-3 space-y-2 text-sm text-neutral-700">
                   <li className="flex items-start gap-2">
-                    <span className="text-brand-red-600 font-bold shrink-0">✓</span>
+                    <ProvidesIcon />
                     <span>
                       Scientific comprehension of buoyancy, body alignment, and water displacement.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-brand-red-600 font-bold shrink-0">✓</span>
+                    <ProvidesIcon />
                     <span>
                       Cognitive anxiety mitigation techniques and breath-control strategies.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-brand-red-600 font-bold shrink-0">✓</span>
+                    <ProvidesIcon />
                     <span>
                       Emergency hazard awareness, flood survival principles, and non-contact rescue
                       rules.
@@ -245,19 +279,19 @@ export default function AboutPage() {
                 </h3>
                 <ul className="mt-3 space-y-2 text-sm text-neutral-700">
                   <li className="flex items-start gap-2">
-                    <span className="text-brand-red-600 font-bold shrink-0">!</span>
+                    <RequiresIcon />
                     <span>
                       Developing physical kinesthetic muscle memory and endurance in deep water.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-brand-red-600 font-bold shrink-0">!</span>
+                    <RequiresIcon />
                     <span>
                       Real-time posture and stroke feedback from certified aquatic instructors.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-brand-red-600 font-bold shrink-0">!</span>
+                    <RequiresIcon />
                     <span>Physical water survival certification and lifesaving qualification.</span>
                   </li>
                 </ul>
@@ -328,18 +362,12 @@ export default function AboutPage() {
 
           {/* Navigation CTA Bar */}
           <div className="mt-12 flex flex-col sm:flex-row items-center gap-4 border-t border-neutral-200 pt-8">
-            <Link
-              href="/articles"
-              className="inline-flex min-h-[44px] w-full sm:w-auto items-center justify-center rounded-lg bg-brand-red-600 px-6 py-2.5 text-sm font-semibold text-neutral-white shadow-xs hover:bg-brand-red-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 focus-visible:ring-offset-2"
-            >
+            <ButtonLink href="/articles" className="w-full sm:w-auto">
               Explore Educational Articles
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex min-h-[44px] w-full sm:w-auto items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-6 py-2.5 text-sm font-semibold text-neutral-900 shadow-xs hover:bg-neutral-50 hover:border-neutral-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-            >
+            </ButtonLink>
+            <ButtonLink href="/contact" variant="outline" className="w-full sm:w-auto">
               Contact &amp; Community Inquiries
-            </Link>
+            </ButtonLink>
           </div>
         </Container>
       </section>

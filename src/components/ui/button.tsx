@@ -1,4 +1,5 @@
 import React, { forwardRef } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "aquatic" | "danger";
@@ -100,3 +101,38 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = "Button";
+
+export interface ButtonLinkProps
+  extends Omit<React.ComponentProps<typeof Link>, "className"> {
+  className?: string;
+  variant?: ButtonVariant;
+  size?: Exclude<ButtonSize, "icon">;
+}
+
+/**
+ * Navigation control styled with the Button design-system variants.
+ * Keeps link CTAs visually identical to interactive buttons.
+ */
+export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
+  ({ className, variant = "primary", size = "md", children, ...props }, ref) => {
+    return (
+      <Link
+        ref={ref}
+        className={cn(
+          "inline-flex items-center justify-center font-semibold select-none cursor-pointer",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+          "transition-all duration-150 ease-out motion-reduce:transition-none",
+          "active:scale-[0.98] motion-reduce:transform-none",
+          variantStyles[variant],
+          sizeStyles[size],
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </Link>
+    );
+  },
+);
+
+ButtonLink.displayName = "ButtonLink";

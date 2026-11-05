@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { getArticleBySlug, getPublishedArticles, getRelatedArticles } from "@/lib/articles";
 
@@ -131,7 +132,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
 
           {/* Responsible Safety Notice */}
-          <div className="mt-12 rounded-xl border border-brand-red-600/20 bg-brand-red-50 p-5 text-xs text-neutral-800 leading-relaxed">
+          <div className="mt-12 rounded-xl border border-brand-red-600/20 bg-brand-red-50 p-5 text-sm text-neutral-800 leading-relaxed">
             <p className="font-bold text-brand-red-700">
               Educational Scope &amp; Safety Disclaimer:
             </p>
@@ -191,12 +192,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Bottom Return Button */}
           <div className="mt-12 flex justify-center pt-6 border-t border-neutral-100">
-            <Link
-              href="/articles"
-              className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-neutral-300 bg-neutral-white px-6 py-2.5 text-sm font-semibold text-neutral-900 hover:bg-neutral-50 hover:border-neutral-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700"
-            >
+            <ButtonLink href="/articles" variant="outline">
               Browse All Educational Guides
-            </Link>
+            </ButtonLink>
           </div>
         </article>
       </Container>
