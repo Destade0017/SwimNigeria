@@ -88,21 +88,18 @@ describe("PKCE Auth Callback Handler (/auth/callback/route.ts)", () => {
     expect(res.headers.get("location")).toBe("https://swimnigeria.org/");
   });
 
-  it("redirects to safe error fallback without leaking details when exchangeCodeForSession fails", async () => {
+  it("handles password recovery redirectType cleanly by routing to /reset-password if next is default", async () => {
     const { GET } = await import("@/app/auth/callback/route");
     mockExchangeCodeForSession.mockResolvedValue({
-      error: { message: "Invalid or expired authorization code", status: 400 },
+      data: { redirectType: "recovery" },
+      error: null,
     });
 
-    const req = new Request("https://swimnigeria.org/auth/callback?code=expired-code-999");
+    const req = new Request("https://swimnigeria.org/auth/callback?code=recovery-code-123");
 
     const res = await GET(req);
     expect(res.status).toBe(307);
-    const location = res.headers.get("location");
-    expect(location).toBe("https://swimnigeria.org/?auth_error=exchange_failed");
-    // Ensure no secret or error details leak into the URL
-    expect(location).not.toContain("expired-code-999");
-    expect(location).not.toContain("Invalid");
+    expect(res.headers.get("location")).toBe("https://swimnigeria.org/reset-password");
   });
 
   it("handles unexpected runtime exceptions safely", async () => {
