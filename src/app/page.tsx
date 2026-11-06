@@ -33,8 +33,9 @@ export default function HomePage() {
     <div className="flex flex-col">
       {/* 1. Hero Section */}
       <section
+        id="hero-band"
         aria-labelledby="hero-heading"
-        className="relative isolate overflow-hidden bg-neutral-900 py-16 sm:py-24 lg:py-32"
+        className="relative isolate -mt-20 overflow-hidden bg-neutral-900 pt-36 pb-16 sm:pt-44 sm:pb-24 lg:pt-52 lg:pb-32"
       >
         {/* Photography backdrop with slate overlay preserving headline contrast */}
         <Image

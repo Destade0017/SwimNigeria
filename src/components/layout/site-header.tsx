@@ -1,7 +1,11 @@
-import React from "react";
+"use client";
+
+import React, { useCallback, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Container } from "./container";
 import { MobileNav, type NavItem } from "./mobile-nav";
+import { cn } from "@/lib/utils";
 
 const navItems: NavItem[] = [
   { label: "Home", href: "/" },
@@ -11,7 +15,34 @@ const navItems: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
+// Approximate vertical footprint of the sticky header band (pill + top gap).
+const HEADER_BAND_HEIGHT = 76;
+
 export function SiteHeader() {
+  const pathname = usePathname();
+
+  const subscribe = useCallback((onChange: () => void) => {
+    window.addEventListener("scroll", onChange, { passive: true });
+    window.addEventListener("resize", onChange);
+    return () => {
+      window.removeEventListener("scroll", onChange);
+      window.removeEventListener("resize", onChange);
+    };
+  }, []);
+
+  // True while the dark hero photography sits behind the transparent pill. The hero is pulled up
+  // under the header band on the home page, so this holds at rest and until the hero scrolls past.
+  const overHero = useSyncExternalStore(
+    subscribe,
+    () => {
+      if (pathname !== "/") return false;
+      const hero = document.getElementById("hero-band");
+      if (!hero) return false;
+      return window.scrollY < hero.offsetTop + hero.offsetHeight - HEADER_BAND_HEIGHT;
+    },
+    () => false,
+  );
+
   return (
     <header className="sticky top-0 z-40 bg-transparent">
       <Container className="pt-3 pb-2">
@@ -44,10 +75,22 @@ export function SiteHeader() {
                 </svg>
               </span>
               <div className="flex flex-col">
-                <span className="text-lg font-extrabold tracking-tight text-neutral-900 group-hover:text-brand-red-600 transition-colors">
+                <span
+                  className={cn(
+                    "text-lg font-extrabold tracking-tight transition-colors",
+                    overHero
+                      ? "text-neutral-white"
+                      : "text-neutral-900 group-hover:text-brand-red-600",
+                  )}
+                >
                   SwimNigeria
                 </span>
-                <span className="text-[11px] font-medium tracking-wide text-neutral-600 -mt-1 hidden sm:inline">
+                <span
+                  className={cn(
+                    "text-[11px] font-medium tracking-wide -mt-1 hidden sm:inline transition-colors",
+                    overHero ? "text-neutral-200" : "text-neutral-600",
+                  )}
+                >
                   Water Safety &amp; Education
                 </span>
               </div>
@@ -60,7 +103,12 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex min-h-[44px] items-center rounded-full px-3 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 focus-visible:ring-offset-2"
+                className={cn(
+                  "flex min-h-[44px] items-center rounded-full px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+                  overHero
+                    ? "text-neutral-200 hover:text-neutral-white hover:bg-neutral-white/10 focus-visible:ring-neutral-white"
+                    : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 focus-visible:ring-brand-red-600",
+                )}
               >
                 {item.label}
               </Link>
@@ -77,7 +125,7 @@ export function SiteHeader() {
             </Link>
 
             {/* Mobile Navigation Drawer Trigger */}
-            <MobileNav items={navItems} />
+            <MobileNav items={navItems} dark={overHero} />
           </div>
         </div>
       </Container>

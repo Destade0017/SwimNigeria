@@ -13,9 +13,11 @@ export interface NavItem {
 
 export interface MobileNavProps {
   items: NavItem[];
+  /** Inverse trigger treatment for when the dark hero photography sits behind the transparent header pill. */
+  dark?: boolean;
 }
 
-export function MobileNav({ items }: MobileNavProps) {
+export function MobileNav({ items, dark = false }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -33,7 +35,12 @@ export function MobileNav({ items }: MobileNavProps) {
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-drawer"
         aria-label="Open mobile navigation menu"
-        className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 focus-visible:ring-offset-2"
+        className={cn(
+          "flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+          dark
+            ? "text-neutral-white hover:bg-neutral-white/10 hover:text-neutral-white focus-visible:ring-neutral-white"
+            : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 focus-visible:ring-brand-red-600",
+        )}
       >
         <svg
           className="h-6 w-6"

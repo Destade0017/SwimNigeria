@@ -38,6 +38,32 @@ test.describe("Responsive Layout & Navigation (Phase 2B)", () => {
     ).toBeVisible();
   });
 
+  test("inverts navigation text while the dark hero sits behind the transparent pill", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/");
+
+    const homeLink = page
+      .getByRole("navigation", { name: "Main Navigation" })
+      .getByRole("link", { name: "Home", exact: true });
+
+    // The hero photography extends behind the pill from the first pixel: light labels at rest.
+    await expect(homeLink).toHaveCSS("color", "rgb(226, 232, 240)");
+
+    // Scrolled past the hero: white page content is behind the glass, labels revert to slate.
+    await page.evaluate(() => {
+      const hero = document.getElementById("hero-band");
+      const bottom = hero ? hero.offsetTop + hero.offsetHeight : 0;
+      window.scrollTo(0, bottom + 150);
+    });
+    await expect(homeLink).toHaveCSS("color", "rgb(51, 65, 85)");
+
+    // Back at the top: light labels restored.
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(homeLink).toHaveCSS("color", "rgb(226, 232, 240)");
+  });
+
   test("supports mobile viewport with responsive drawer navigation and focus management", async ({
     page,
   }) => {
