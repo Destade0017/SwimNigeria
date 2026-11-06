@@ -69,9 +69,24 @@ test.describe("Responsive Layout & Navigation (Phase 2B)", () => {
     });
     await expect(mobileNav).toBeVisible();
 
+    // Background scroll must be locked while the drawer is open
+    await expect(page.evaluate(() => document.body.style.overflow)).resolves.toBe("hidden");
+
+    // Current route is marked; anchor links are not
+    await expect(mobileNav.getByRole("link", { name: "Home", exact: true })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+    await expect(mobileNav.getByRole("link", { name: "Courses", exact: true })).not.toHaveAttribute(
+      "aria-current",
+    );
+
     // Press Escape to dismiss drawer
     await page.keyboard.press("Escape");
     await expect(dialog).not.toBeVisible();
+
+    // Scroll lock is released on close
+    await expect(page.evaluate(() => document.body.style.overflow)).resolves.toBe("");
 
     // Focus must return to the mobile menu trigger button
     await expect(menuButton).toBeFocused();

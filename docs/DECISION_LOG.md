@@ -16,6 +16,7 @@ This document records the foundational architectural and technical decisions mad
 * **ADR-008:** Pedagogical Module Hierarchy in Course Curriculum (Course → Module → Lesson)
 * **ADR-009:** Learner Registration, Server-Side Zod Validation, Non-Authoritative Metadata, and Email Verification
 * **ADR-010:** Centralized Unsplash Photography Registry via next/image Remote Patterns
+* **ADR-011:** Floating Pill Site Header with Drawer Scroll Lock, Entry Motion, and Active-Route Marking
 
 ---
 
@@ -154,4 +155,18 @@ This document records the foundational architectural and technical decisions mad
   3. *Central registry (`src/lib/images.ts`) + hot-linked `images.unsplash.com` CDN via `next/image` `remotePatterns`:* Unsplash License permits free use without attribution (attribution is encouraged); hot-linking is Unsplash's recommended integration. The optimizer fetches origins server-side and caches resized variants.
 * **Reasoning:** Option 3 keeps every photographic asset declared once with its `alt`, `author`, and license `sourceUrl`, restricts the Next image optimizer to `https://images.unsplash.com/photo-**`, and renders via `fill` inside fixed aspect-ratio containers so layout stays stable. Alt text describes only verifiably visible content; content pages render visible credit captions linking each canonical Unsplash page.
 * **Consequences:** Production traffic to Unsplash's CDN carries hot-link rate-limit exposure; if that becomes a problem, assets migrate to `public/` or a bucket by editing only `src/lib/images.ts` and `next.config.ts`. Adding imagery for new (database-backed) courses/articles in later phases should extend the registry keyed by slug, and `docs/DESIGN_SYSTEM.md` caption/credit typography (14px, `neutral-600`) applies to all photo credit lines.
+
+---
+
+## ADR-011: Floating Pill Site Header with Drawer Scroll Lock, Entry Motion, and Active-Route Marking
+
+* **Status:** **Accepted**
+* **Date:** 2026-11-06
+* **Context:** The mobile navigation (`MobileNav` + `Dialog` drawer) already met the WCAG AA and integration requirements; an audit found three genuine gaps (no active-route marking, background scroll behind the open drawer, no entry motion). The user additionally pinned a floating pill navigation style via a supplied reference screenshot.
+* **Options Considered:**
+  1. *Rewrite the navigation component:* Rejected — the existing implementation is tested and compliant; replacement adds risk without product gain.
+  2. *Keep the full-bleed bordered header and only patch gaps:* Rejected — the user explicitly chose the pill treatment.
+  3. *Restyle `SiteHeader` as a floating pill surface (border + shadow + translucent blurred white) while preserving all roles, hrefs, and touch targets, plus targeted gap fixes:* `aria-current="page"` via `usePathname` in the drawer, body scroll lock in the shared `Dialog`, and a CSS keyframe slide-in scoped to `dialog[data-variant="drawer"]`.
+* **Reasoning:** Option 3 honors the pinned reference at the chrome layer only; semantics, tests, and the drawer architecture stay intact. Motion is entry-only CSS (native `<dialog>` display toggling cannot animate exits without `@starting-style` investment) and is neutralized by the existing global reduced-motion rule.
+* **Consequences:** Header height grows ~12px (top gap). The scroll lock lives in the shared `Dialog`, so modals also stop background scroll — intended. Active-route styling currently covers the mobile drawer; desktop nav highlighting would require converting the desktop links to a client component and is deferred.
 

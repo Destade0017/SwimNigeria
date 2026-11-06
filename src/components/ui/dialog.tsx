@@ -77,6 +77,17 @@ export const Dialog = ({
     };
   }, [isOpen]);
 
+  // Lock background scrolling while the dialog (or drawer) is open so content
+  // behind the panel cannot be scrolled on touch devices.
+  useEffect(() => {
+    if (!isOpen || typeof document === "undefined") return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
+
   // Handle native Escape key cancellation
   const handleCancel = useCallback(
     (event: React.SyntheticEvent<HTMLDialogElement, Event>) => {
@@ -112,6 +123,7 @@ export const Dialog = ({
       <dialog
         ref={dialogRef}
         id={id}
+        data-variant={variant}
         onCancel={handleCancel}
         onClick={handleClick}
         aria-modal="true"

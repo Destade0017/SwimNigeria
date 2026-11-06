@@ -1,10 +1,14 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import React from "react";
 import { Container } from "@/components/layout/container";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
+
+// Controllable pathname stub for usePathname (active-route marking in MobileNav)
+const { mockPathname } = vi.hoisted(() => ({ mockPathname: { current: "/" } }));
+vi.mock("next/navigation", () => ({ usePathname: () => mockPathname.current }));
 
 describe("Layout Foundations (Phase 2B)", () => {
   describe("Container Primitive", () => {
@@ -127,6 +131,30 @@ describe("Layout Foundations (Phase 2B)", () => {
 
       fireEvent.click(coursesLink);
       expect(menuButton).toHaveAttribute("aria-expanded", "false");
+    });
+
+    it("marks only the current route link with aria-current, never anchor links", () => {
+      mockPathname.current = "/";
+      render(<MobileNav items={items} />);
+      fireEvent.click(screen.getByRole("button", { name: /open mobile navigation menu/i }));
+
+      // Home ("/") matches the route; Courses ("/#courses") and About ("/#about") are anchors.
+      expect(screen.getByRole("link", { name: "Home" })).toHaveAttribute("aria-current", "page");
+      expect(screen.getByRole("link", { name: "Courses" })).not.toHaveAttribute("aria-current");
+      expect(screen.getByRole("link", { name: "About" })).not.toHaveAttribute("aria-current");
+    });
+
+    it("locks background scroll while the drawer is open and restores it on close", () => {
+      render(<MobileNav items={items} />);
+      const menuButton = screen.getByRole("button", {
+        name: /open mobile navigation menu/i,
+      });
+
+      fireEvent.click(menuButton);
+      expect(document.body.style.overflow).toBe("hidden");
+
+      fireEvent.click(screen.getByRole("button", { name: "Close dialog" }));
+      expect(document.body.style.overflow).toBe("");
     });
   });
 

@@ -78,6 +78,20 @@ textarea {
   touch-action: manipulation;
 }
 
+/* Navigation drawer slide-in (entry only; zeroed under prefers-reduced-motion below) */
+@keyframes drawer-slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+dialog[data-variant="drawer"][open] {
+  animation: drawer-slide-in 200ms var(--ease-out-cubic);
+}
+
 /* Respect user preference for reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -147,6 +147,11 @@ Typography must be exceptionally legible across budget Android smartphones, high
   > "Certificate of Theoretical Course Completion: This credential validates completion of digital coursework and water safety knowledge. It does not certify physical swimming competence, water survival capability, or lifeguarding qualification without practical, in-person assessment by a certified aquatic instructor."
   * Graphic ornamentation or framing must never obscure this statement. The certificate must never imply practical in-water qualification.
 
+### 5.6 Site Chrome: Floating Pill Header & Mobile Drawer
+* **Header surface:** A single floating pill bar (`rounded-2xl` below `md`, `rounded-full` at `md`+) inside the sticky header band: 1px `neutral-200` border, `shadow-lg`, fully transparent fill with `backdrop-blur-md` glass so underlying page content (hero photography when scrolled) shows through the pill. Brand mark left, desktop nav center, CTA + hamburger right; all existing roles (`banner`, `Main Navigation`) and 44px touch targets unchanged.
+* **Mobile drawer:** Right-side sheet (native `<dialog>`, `variant="drawer"`) opens with a single 200ms `--ease-out-cubic` slide-in (entry only; zeroed by the global `prefers-reduced-motion` rule) and locks background scroll (`body { overflow: hidden }` while open, restored on every close path).
+* **Current page:** Drawer links matching the active route carry `aria-current="page"` with a `water-blue-50` surface and `water-blue-800` semibold label. Anchor links (`/#courses`) are never treated as current.
+
 ---
 
 ## 6. Feedback, Empty, and Loading States

@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Dialog, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 export interface NavItem {
   label: string;
@@ -15,8 +17,12 @@ export interface MobileNavProps {
 
 export function MobileNav({ items }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const handleClose = () => setIsOpen(false);
+
+  // Anchor hrefs (e.g. "/#courses") address sections within a page, so they never mark a route as current.
+  const isActiveItem = (href: string) => !href.includes("#") && pathname === href;
 
   return (
     <div className="md:hidden">
@@ -67,17 +73,26 @@ export function MobileNav({ items }: MobileNavProps) {
 
         <nav aria-label="Mobile Navigation" className="flex flex-1 flex-col justify-between py-4">
           <ul className="flex flex-col space-y-1">
-            {items.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={handleClose}
-                  className="flex min-h-[44px] items-center rounded-lg px-3 py-2 text-base font-medium text-neutral-800 transition-colors hover:bg-neutral-100 hover:text-brand-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 focus-visible:ring-offset-2"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {items.map((item) => {
+              const isActive = isActiveItem(item.href);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={handleClose}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "flex min-h-[44px] items-center rounded-lg px-3 py-2 text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 focus-visible:ring-offset-2",
+                      isActive
+                        ? "bg-water-blue-50 text-water-blue-800 font-semibold"
+                        : "text-neutral-800 hover:bg-neutral-100 hover:text-brand-red-600",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="mt-8 border-t border-neutral-200 pt-4">
