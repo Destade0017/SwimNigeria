@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
+import { getLessonImage } from "@/lib/images";
 import {
   getPreviewLesson,
   getAdjacentPreviewLessons,
@@ -57,6 +59,8 @@ export default async function PreviewLessonPage({ params }: PreviewLessonPagePro
   const { course, module: moduleItem, lesson } = resolved;
   const safeVideo = getSafeVideoEmbed(lesson.videoReference);
   const adjacent = getAdjacentPreviewLessons(course.slug, lesson.slug);
+
+  const lessonImage = getLessonImage(lesson.slug);
 
   return (
     <div className="py-12 sm:py-16 lg:py-20">
@@ -133,6 +137,33 @@ export default async function PreviewLessonPage({ params }: PreviewLessonPagePro
             </Link>
           </div>
         </header>
+
+        {/* Contextual figure supporting the lesson topic (published preview lessons only) */}
+        {lessonImage && (
+          <figure className="mt-8 space-y-2">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-neutral-200">
+              <Image
+                src={lessonImage.src}
+                alt={lessonImage.alt}
+                fill
+                sizes="(min-width: 768px) 768px, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="text-xs text-neutral-500">
+              Photo: {lessonImage.author} on{" "}
+              <a
+                href={lessonImage.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 rounded"
+              >
+                Unsplash
+              </a>
+              .
+            </figcaption>
+          </figure>
+        )}
 
         {/* Mandatory Educational & Life-Safety Disclaimer */}
         <div className="mt-8 rounded-xl border border-brand-red-200 bg-brand-red-50/70 p-5 sm:p-6 text-brand-red-950 text-sm leading-relaxed">

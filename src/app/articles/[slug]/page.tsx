@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
@@ -6,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { getArticleBySlug, getPublishedArticles, getRelatedArticles } from "@/lib/articles";
+import { getArticleImage } from "@/lib/images";
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -45,6 +47,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   const relatedArticles = getRelatedArticles(article.slug, article.category, 2);
+
+  const heroImage = getArticleImage(article.slug);
 
   return (
     <div className="py-12 sm:py-16 lg:py-20">
@@ -93,6 +97,34 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               {article.summary}
             </p>
           </header>
+
+          {/* Contextual hero photography (published articles only) */}
+          {heroImage && (
+            <figure className="space-y-2">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-neutral-200">
+                <Image
+                  src={heroImage.src}
+                  alt={heroImage.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 768px) 768px, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="text-xs text-neutral-500">
+                Photo: {heroImage.author} on{" "}
+                <a
+                  href={heroImage.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 rounded"
+                >
+                  Unsplash
+                </a>
+                .
+              </figcaption>
+            </figure>
+          )}
 
           {/* Article Body Content */}
           <div className="space-y-8 text-neutral-800 leading-relaxed text-base sm:text-lg">

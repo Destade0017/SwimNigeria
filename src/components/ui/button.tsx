@@ -2,7 +2,8 @@ import React, { forwardRef } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "aquatic" | "danger";
+export type ButtonVariant =
+  "primary" | "secondary" | "outline" | "outlineLight" | "ghost" | "aquatic" | "danger";
 
 export type ButtonSize = "sm" | "md" | "lg" | "icon";
 
@@ -20,6 +21,8 @@ const variantStyles: Record<ButtonVariant, string> = {
     "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 active:bg-neutral-300 focus-visible:ring-neutral-700 border border-transparent",
   outline:
     "bg-transparent text-neutral-900 border border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50 active:bg-neutral-100 focus-visible:ring-neutral-900",
+  outlineLight:
+    "bg-transparent text-neutral-white border border-neutral-400 hover:border-neutral-white hover:bg-neutral-white/10 active:bg-neutral-white/20 focus-visible:ring-neutral-white",
   ghost:
     "bg-transparent text-neutral-900 hover:bg-neutral-100 active:bg-neutral-200 focus-visible:ring-neutral-900 border border-transparent",
   aquatic:
@@ -102,8 +105,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 
-export interface ButtonLinkProps
-  extends Omit<React.ComponentProps<typeof Link>, "className"> {
+export interface ButtonLinkProps extends Omit<React.ComponentProps<typeof Link>, "className"> {
   className?: string;
   variant?: ButtonVariant;
   size?: Exclude<ButtonSize, "icon">;

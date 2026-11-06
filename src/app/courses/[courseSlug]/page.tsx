@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
+import { getCourseCover } from "@/lib/images";
 import {
   getCourseBySlug,
   getPublishedCourses,
@@ -51,6 +53,8 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
 
   // Calculate total published lessons count
   const totalLessons = course.modules.reduce((count, mod) => count + mod.lessons.length, 0);
+
+  const cover = getCourseCover(course.slug);
 
   return (
     <div className="py-12 sm:py-16 lg:py-20">
@@ -109,6 +113,34 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
             </div>
           </div>
         </header>
+
+        {/* Prominent course cover photography */}
+        {cover && (
+          <figure className="mt-6 max-w-4xl">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-neutral-200 sm:aspect-[21/9]">
+              <Image
+                src={cover.src}
+                alt={cover.alt}
+                fill
+                priority
+                sizes="(min-width: 1280px) 896px, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="mt-2 text-xs text-neutral-500">
+              Photo: {cover.author} on{" "}
+              <a
+                href={cover.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red-600 rounded"
+              >
+                Unsplash
+              </a>
+              .
+            </figcaption>
+          </figure>
+        )}
 
         {/* Mandatory Educational & Life-Safety Disclaimer */}
         <div className="mt-8 rounded-xl border border-brand-red-200 bg-brand-red-50/70 p-5 sm:p-6 text-brand-red-950 text-sm leading-relaxed max-w-4xl">
@@ -331,10 +363,10 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
                 Ready to Study This Course?
               </h2>
               <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
-                SwimNigeria is rolling out its curriculum incrementally. Public syllabus
-                exploration and designated preview lesson readers are live today. Full interactive
-                student enrollment, lesson progress tracking, and certificate assessment will open
-                in upcoming phases.
+                SwimNigeria is rolling out its curriculum incrementally. Public syllabus exploration
+                and designated preview lesson readers are live today. Full interactive student
+                enrollment, lesson progress tracking, and certificate assessment will open in
+                upcoming phases.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-4">
                 <ButtonLink href="/courses">Explore Other Courses</ButtonLink>

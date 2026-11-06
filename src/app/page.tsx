@@ -1,9 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
+import { HERO_IMAGE, HOME_VALUE_IMAGE } from "@/lib/images";
 import {
   Card,
   CardHeader,
@@ -32,9 +34,22 @@ export default function HomePage() {
       {/* 1. Hero Section */}
       <section
         aria-labelledby="hero-heading"
-        className="relative overflow-hidden bg-gradient-to-b from-neutral-50/80 via-neutral-white to-neutral-white py-16 sm:py-24 lg:py-32"
+        className="relative isolate overflow-hidden bg-neutral-900 py-16 sm:py-24 lg:py-32"
       >
-        <Container>
+        {/* Photography backdrop with slate overlay preserving headline contrast */}
+        <Image
+          src={HERO_IMAGE.src}
+          alt={HERO_IMAGE.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-neutral-950/90 via-neutral-950/75 to-neutral-900/40"
+        />
+        <Container className="relative">
           <div className="max-w-3xl">
             <Badge variant="brand" className="mb-4">
               Swimming Education &amp; Water Safety
@@ -42,12 +57,12 @@ export default function HomePage() {
 
             <h1
               id="hero-heading"
-              className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl leading-[1.12]"
+              className="text-3xl font-extrabold tracking-tight text-neutral-white sm:text-5xl lg:text-6xl leading-[1.12]"
             >
               SwimNigeria — Structured Swimming Education &amp; Water Safety
             </h1>
 
-            <p className="mt-6 text-base sm:text-lg lg:text-xl text-neutral-700 leading-relaxed">
+            <p className="mt-6 text-base sm:text-lg lg:text-xl text-neutral-200 leading-relaxed">
               SwimNigeria is an online educational initiative dedicated to teaching foundational
               swimming mechanics, water safety principles, and structured learning pathways for
               beginners, families, and communities across Nigeria.
@@ -58,30 +73,30 @@ export default function HomePage() {
               <ButtonLink href="#courses" size="lg">
                 Explore Learning Pathway
               </ButtonLink>
-              <ButtonLink href="#safety" variant="outline" size="lg">
+              <ButtonLink href="#safety" variant="outlineLight" size="lg">
                 Water Safety Principles
               </ButtonLink>
             </div>
 
             {/* Truthful Educational Highlights */}
-            <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-3 pt-8 border-t border-neutral-200">
+            <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-3 pt-8 border-t border-neutral-700">
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-neutral-900">Structured Curriculum</span>
-                <span className="text-xs text-neutral-600 mt-0.5">
+                <span className="text-sm font-bold text-neutral-white">Structured Curriculum</span>
+                <span className="text-xs text-neutral-300 mt-0.5">
                   Beginner-friendly step-by-step lesson sequences.
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-neutral-900">Drowning Prevention</span>
-                <span className="text-xs text-neutral-600 mt-0.5">
+                <span className="text-sm font-bold text-neutral-white">Drowning Prevention</span>
+                <span className="text-xs text-neutral-300 mt-0.5">
                   Crucial aquatic hazard and bystander rescue knowledge.
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-neutral-900">
+                <span className="text-sm font-bold text-neutral-white">
                   Self-Paced Digital Access
                 </span>
-                <span className="text-xs text-neutral-600 mt-0.5">
+                <span className="text-xs text-neutral-300 mt-0.5">
                   Optimized for mobile connections across Nigeria.
                 </span>
               </div>
@@ -114,16 +129,23 @@ export default function HomePage() {
                 learners to approach practical water sessions safely.
               </p>
             </div>
-            <ButtonLink
-              href="/about"
-              variant="outline"
-              className="shrink-0 self-start sm:self-end"
-            >
+            <ButtonLink href="/about" variant="outline" className="shrink-0 self-start sm:self-end">
               About Our Mission{" "}
               <span aria-hidden="true" className="ml-1.5">
                 →
               </span>
             </ButtonLink>
+          </div>
+
+          {/* Supporting photography banner */}
+          <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-xl border border-neutral-200 sm:mt-12 sm:aspect-[21/9]">
+            <Image
+              src={HOME_VALUE_IMAGE.src}
+              alt={HOME_VALUE_IMAGE.alt}
+              fill
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              className="object-cover"
+            />
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -423,7 +445,9 @@ export default function HomePage() {
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6">
               <span className="text-2xl font-extrabold text-brand-red-600">01</span>
-              <h3 className="mt-2 text-base font-bold text-neutral-900">Drowning is Often Silent</h3>
+              <h3 className="mt-2 text-base font-bold text-neutral-900">
+                Drowning is Often Silent
+              </h3>
               <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
                 Real drowning does not resemble theatrical flailing or shouting. Victims typically
                 struggle quietly at the surface without the breath needed to call for help.
@@ -454,8 +478,8 @@ export default function HomePage() {
               <span className="text-2xl font-extrabold text-brand-red-600">04</span>
               <h3 className="mt-2 text-base font-bold text-neutral-900">Float to Live</h3>
               <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
-                If caught unexpectedly in deep water or currents, fight the panic instinct. Tilt your
-                head back, spread your limbs, float on your back, and regulate your breathing.
+                If caught unexpectedly in deep water or currents, fight the panic instinct. Tilt
+                your head back, spread your limbs, float on your back, and regulate your breathing.
               </p>
             </div>
           </div>

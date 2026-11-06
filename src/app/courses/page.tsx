@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
+import { getCourseCover } from "@/lib/images";
 import {
   Card,
   CardHeader,
@@ -257,6 +259,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
             {courses.map((course) => {
               const diffLabel =
                 course.difficulty.charAt(0).toUpperCase() + course.difficulty.slice(1);
+              const cover = getCourseCover(course.slug);
 
               return (
                 <Card
@@ -264,6 +267,18 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
                   className="flex flex-col justify-between"
                   data-testid={`course-card-${course.slug}`}
                 >
+                  {/* Course cover photography (centralised registry, keyed by slug) */}
+                  {cover && (
+                    <div className="relative aspect-[16/10] w-full">
+                      <Image
+                        src={cover.src}
+                        alt={cover.alt}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                   <CardHeader>
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                       <Badge
