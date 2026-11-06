@@ -22,7 +22,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   outline:
     "bg-transparent text-neutral-900 border border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50 active:bg-neutral-100 focus-visible:ring-neutral-900",
   outlineLight:
-    "bg-transparent text-neutral-white border border-neutral-400 hover:border-neutral-white hover:bg-neutral-white/10 active:bg-neutral-white/20 focus-visible:ring-neutral-white",
+    "bg-transparent text-neutral-white border border-neutral-400 hover:border-neutral-white hover:bg-neutral-white/10 active:bg-neutral-white/20 focus-visible:ring-neutral-white focus-visible:ring-offset-neutral-900",
   ghost:
     "bg-transparent text-neutral-900 hover:bg-neutral-100 active:bg-neutral-200 focus-visible:ring-neutral-900 border border-transparent",
   aquatic:

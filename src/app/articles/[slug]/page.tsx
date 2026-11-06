@@ -111,7 +111,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   className="object-cover"
                 />
               </div>
-              <figcaption className="text-xs text-neutral-500">
+              <figcaption className="text-sm text-neutral-600">
                 Photo: {heroImage.author} on{" "}
                 <a
                   href={heroImage.sourceUrl}

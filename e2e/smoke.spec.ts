@@ -24,6 +24,16 @@ test.describe("SwimNigeria Public Entry Smoke & Accessibility", () => {
     await expect(primaryCta).toHaveAttribute("href", "#courses");
   });
 
+  test("decodes the hero photograph through the image optimizer", async ({ page }) => {
+    await page.goto("/");
+    const heroImg = page.getByRole("img", { name: /Swimmer mid-stroke/i });
+    await expect(heroImg).toBeVisible();
+    // naturalWidth > 0 proves the remote image actually loaded (not a broken URL or 500 optimizer response)
+    await expect
+      .poll(() => heroImg.evaluate((el) => (el as HTMLImageElement).naturalWidth))
+      .toBeGreaterThan(0);
+  });
+
   test("passes automated WCAG 2.1 AA accessibility checks", async ({ page }) => {
     await page.goto("/");
     const accessibilityScanResults = await new AxeBuilder({ page })

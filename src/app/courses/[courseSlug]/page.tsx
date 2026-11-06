@@ -127,7 +127,7 @@ export default async function CourseSyllabusPage({ params }: CourseSyllabusPageP
                 className="object-cover"
               />
             </div>
-            <figcaption className="mt-2 text-xs text-neutral-500">
+            <figcaption className="mt-2 text-sm text-neutral-600">
               Photo: {cover.author} on{" "}
               <a
                 href={cover.sourceUrl}

@@ -13,7 +13,13 @@ vi.mock("next/image", () => ({
     const imgProps = Object.fromEntries(
       Object.entries(rest).filter(([key]) => !NEXT_ONLY_IMAGE_PROPS.includes(key)),
     );
-    return React.createElement("img", { src: String(src), alt: String(alt ?? ""), ...imgProps });
+    // Omit alt entirely when the caller omitted it, so axe-core flags the missing
+    // attribute instead of treating a fabricated alt="" as intentionally decorative.
+    return React.createElement("img", {
+      src: String(src),
+      ...(alt === undefined ? {} : { alt: String(alt) }),
+      ...imgProps,
+    });
   },
 }));
 

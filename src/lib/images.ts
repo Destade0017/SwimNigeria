@@ -55,7 +55,7 @@ export const COURSE_COVERS: Readonly<Record<string, PhotoAsset>> = {
   },
   "buoyancy-breathing-mechanics": {
     src: "https://images.unsplash.com/photo-1593055497705-59a84c5928b2?auto=format&fit=crop&q=80&w=2400",
-    alt: "Person resting calmly at the sunlit surface of open water",
+    alt: "A swimmer seen from above through the surface of a pool lane",
     author: "Talahria Jensen",
     sourceUrl: "https://unsplash.com/photos/F20aPGvyhrQ",
   },
@@ -65,6 +65,14 @@ export const COURSE_COVERS: Readonly<Record<string, PhotoAsset>> = {
     author: "Marcus Ng",
     sourceUrl: "https://unsplash.com/photos/ZbbhkQ0M2AM",
   },
+};
+
+/** Shared asset used by the buoyancy article hero and the Archimedes lesson figure. */
+const WATER_RIPPLES: PhotoAsset = {
+  src: "https://images.unsplash.com/photo-1562016600-ece13e8ba570?auto=format&fit=crop&q=80&w=2400",
+  alt: "Sunlit ripples across the surface of crystal-blue water",
+  author: "Wesley Tingey",
+  sourceUrl: "https://unsplash.com/photos/9-OCsKoyQlk",
 };
 
 /** Article hero images keyed by article slug. Only published articles are mapped. */
@@ -81,12 +89,7 @@ export const ARTICLE_IMAGES: Readonly<Record<string, PhotoAsset>> = {
     author: "Kevin Paes",
     sourceUrl: "https://unsplash.com/photos/1AZzPJWhyMQ",
   },
-  "mechanics-of-buoyancy-why-bodies-float": {
-    src: "https://images.unsplash.com/photo-1562016600-ece13e8ba570?auto=format&fit=crop&q=80&w=2400",
-    alt: "Sunlit ripples across the surface of crystal-blue water",
-    author: "Wesley Tingey",
-    sourceUrl: "https://unsplash.com/photos/9-OCsKoyQlk",
-  },
+  "mechanics-of-buoyancy-why-bodies-float": WATER_RIPPLES,
 };
 
 /** Lesson figures keyed to published preview lesson slugs. */
@@ -98,14 +101,12 @@ export const LESSON_IMAGES: Readonly<Record<string, PhotoAsset>> = {
     sourceUrl: "https://unsplash.com/photos/TVOAbbLL050",
   },
   "archimedes-principle-and-lung-volume": {
-    src: "https://images.unsplash.com/photo-1562016600-ece13e8ba570?auto=format&fit=crop&q=80&w=2400",
+    ...WATER_RIPPLES,
     alt: "Rippling crystal-blue water surface illustrating displaced light and movement",
-    author: "Wesley Tingey",
-    sourceUrl: "https://unsplash.com/photos/9-OCsKoyQlk",
   },
   "hydrodynamic-drag-and-body-line": {
     src: "https://images.unsplash.com/photo-1560088937-d46f082d558b?auto=format&fit=crop&q=80&w=2400",
-    alt: "Competition swimmer cutting a streamlined line through deep blue pool water",
+    alt: "Swimmer executing a freestyle arm recovery beside a lane float",
     author: "Serena Repice Lentini",
     sourceUrl: "https://unsplash.com/photos/q4tScOAuIm8",
   },

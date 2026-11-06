@@ -15,6 +15,7 @@ This document records the foundational architectural and technical decisions mad
 * **ADR-007:** Dominant Red & White Brand Color Strategy with Slate Neutrals
 * **ADR-008:** Pedagogical Module Hierarchy in Course Curriculum (Course → Module → Lesson)
 * **ADR-009:** Learner Registration, Server-Side Zod Validation, Non-Authoritative Metadata, and Email Verification
+* **ADR-010:** Centralized Unsplash Photography Registry via next/image Remote Patterns
 
 ---
 
@@ -139,4 +140,18 @@ This document records the foundational architectural and technical decisions mad
   3. *Server Action + Shared Zod Validation + Non-Authoritative Supabase Auth Metadata:* Validate input server-side with Zod. Call `supabase.auth.signUp` passing the trimmed full name in `options.data.full_name`. Handle duplicate emails consistently to resist account enumeration. Enforce email verification via PKCE exchange at `/auth/callback?next=/courses`.
 * **Reasoning:** Option 3 minimizes scope, eliminates premature database dependencies, protects against enumeration attacks, and maintains zero service-role key exposure. Storing `full_name` in `user_metadata` provides immediate non-authoritative profile storage that will be migrated to the authoritative `profiles` table in Phase 5.5.
 * **Consequences:** `user_metadata` must never be used for authorization decisions or RLS policies. The registration UI makes clear that email verification is mandatory before access to authenticated features is granted. No `/login` link is rendered until Phase 5.3.
+
+---
+
+## ADR-010: Centralized Unsplash Photography Registry via next/image Remote Patterns
+
+* **Status:** **Accepted**
+* **Date:** 2026-11-06
+* **Context:** Marketing and content pages required authentic swimming photography without new dependencies, asset redistribution obligations, or per-page URL sprawl. Sourcing must stay verifiable (license, attribution) and low-bandwidth-friendly per ADR-002.
+* **Options Considered:**
+  1. *Downloaded assets in `public/`:* Requires committing binary assets to the repo and duplicating Unsplash-managed files; downloading was disallowed in the working constraints and adds repo weight.
+  2. *Per-page hardcoded URLs:* Unauditable, inconsistent attribution, painful asset swaps.
+  3. *Central registry (`src/lib/images.ts`) + hot-linked `images.unsplash.com` CDN via `next/image` `remotePatterns`:* Unsplash License permits free use without attribution (attribution is encouraged); hot-linking is Unsplash's recommended integration. The optimizer fetches origins server-side and caches resized variants.
+* **Reasoning:** Option 3 keeps every photographic asset declared once with its `alt`, `author`, and license `sourceUrl`, restricts the Next image optimizer to `https://images.unsplash.com/photo-**`, and renders via `fill` inside fixed aspect-ratio containers so layout stays stable. Alt text describes only verifiably visible content; content pages render visible credit captions linking each canonical Unsplash page.
+* **Consequences:** Production traffic to Unsplash's CDN carries hot-link rate-limit exposure; if that becomes a problem, assets migrate to `public/` or a bucket by editing only `src/lib/images.ts` and `next.config.ts`. Adding imagery for new (database-backed) courses/articles in later phases should extend the registry keyed by slug, and `docs/DESIGN_SYSTEM.md` caption/credit typography (14px, `neutral-600`) applies to all photo credit lines.
 

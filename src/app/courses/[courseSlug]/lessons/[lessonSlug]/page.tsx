@@ -146,11 +146,12 @@ export default async function PreviewLessonPage({ params }: PreviewLessonPagePro
                 src={lessonImage.src}
                 alt={lessonImage.alt}
                 fill
+                priority
                 sizes="(min-width: 768px) 768px, 100vw"
                 className="object-cover"
               />
             </div>
-            <figcaption className="text-xs text-neutral-500">
+            <figcaption className="text-sm text-neutral-600">
               Photo: {lessonImage.author} on{" "}
               <a
                 href={lessonImage.sourceUrl}

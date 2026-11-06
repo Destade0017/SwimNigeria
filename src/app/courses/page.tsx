@@ -269,7 +269,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
                 >
                   {/* Course cover photography (centralised registry, keyed by slug) */}
                   {cover && (
-                    <div className="relative aspect-[16/10] w-full">
+                    <div className="relative aspect-video w-full">
                       <Image
                         src={cover.src}
                         alt={cover.alt}
@@ -340,11 +340,7 @@ export default async function CoursesPage({ searchParams }: CoursesPageProps) {
                   </CardContent>
 
                   <CardFooter className="border-t border-neutral-100 pt-4">
-                    <ButtonLink
-                      href={`/courses/${course.slug}`}
-                      size="sm"
-                      className="w-full justify-center"
-                    >
+                    <ButtonLink href={`/courses/${course.slug}`} className="w-full justify-center">
                       View Syllabus
                     </ButtonLink>
                   </CardFooter>
